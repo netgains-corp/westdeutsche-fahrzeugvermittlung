@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Westdeutsche Fahrzeugvermittlung</title>
+    
+    <!-- PERFORMANCE: Preload LCP (Largest Contentful Paint) Image -->
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2069&auto=format&fit=crop">
+    
+    <!-- Tailwind CSS (Hinweis: Für Produktion später durch einen Build-Prozess kompilieren) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Optimiert mit preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- PERFORMANCE: Defer FontAwesome (verhindert Render-Blocking) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        cursive: ['Caveat', 'cursive'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0a0a0a',
+                            gray: '#171717',
+                            light: '#f5f5f5',
+                            gold: '#d4af37',
+                            goldGradientStart: '#eab308',
+                            goldGradientEnd: '#b45309',
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2069&auto=format&fit=crop')",
+                        'gold-gradient': "linear-gradient(to right, #eab308, #b45309)",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for refined aesthetics & performance */
+        body {
+            background-color: #050505;
+            color: #e5e5e5;
+            /* Hardware acceleration für weicheres Rendering */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .text-gold-gradient {
+            background: linear-gradient(to right, #facc15, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-gold {
+            background: linear-gradient(to right, #eab308, #b45309);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(234, 179, 8, 0.2);
+            /* Optimierung für flüssige Hover-Animationen */
+            will-change: transform, box-shadow;
+        }
+        
+        .btn-gold:hover {
+            background: linear-gradient(to right, #facc15, #d97706);
+            box-shadow: 0 6px 20px rgba(234, 179, 8, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Native HTML5 Accordion Styling */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] summary ~ * {
+            animation: sweep .4s ease-in-out;
+        }
+        @keyframes sweep {
+            0%    {opacity: 0; transform: translateY(-10px)}
+            100%  {opacity: 1; transform: translateY(0)}
+        }
+    </style>
+</head>
+<body class="selection:bg-brand-gold selection:text-white">
+
+    <!-- HEADER / NAVIGATION (Mobile Optimiert: Höhe reduziert auf h-20) -->
+    <header class="fixed w-full top-0 z-50 bg-black/90 backdrop-blur-md border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20 md:h-24">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="flex items-center gap-3 md:gap-4 group">
+                        <!-- Logo Image: Aktualisiert auf Westdeutsche.webp -->
+                        <img src="Westdeutsche.webp" alt="Westdeutsche Fahrzeugvermittlung Adler Logo" class="h-12 md:h-16 lg:h-20 w-auto object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/171717/d4af37?text=Adler'">
+                        <div class="flex flex-col hidden sm:flex">
+                            <span class="text-white font-bold text-lg md:text-xl lg:text-2xl tracking-[0.15em] leading-none">WESTDEUTSCHE</span>
+                            <span class="text-brand-gold text-[0.60rem] md:text-xs tracking-[0.25em] font-medium mt-1">FAHRZEUGVERMITTLUNG</span>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <a href="#angebote" class="text-gray-300 hover:text-brand-gold transition-colors text-xs lg:text-sm font-medium uppercase tracking-wider">Angebote</a>
+                    <a href="#leistungen" class="text-gray-300 hover:text-brand-gold transition-colors text-xs lg:text-sm font-medium uppercase tracking-wider">Leistungen</a>
+                    <a href="#qualitaet" class="text-gray-300 hover:text-brand-gold transition-colors text-xs lg:text-sm font-medium uppercase tracking-wider">Qualität</a>
+                    <a href="#faq" class="text-gray-300 hover:text-brand-gold transition-colors text-xs lg:text-sm font-medium uppercase tracking-wider">FAQ</a>
+                    <!-- Auffälliger Kontaktbutton Desktop -->
+                    <a href="#kontakt" class="btn-gold text-white px-5 py-2 lg:px-6 lg:py-2 rounded-sm text-xs lg:text-sm font-bold uppercase tracking-wider shadow-lg">Kontakt</a>
+                </nav>
+
+                <!-- Mobile Header Elements (Sandwichleiste & Button) -->
+                <div class="flex md:hidden items-center gap-3">
+                    <!-- Dauerhafter Kontaktbutton Mobile -->
+                    <a href="#kontakt" class="btn-gold text-white px-4 py-2 rounded-sm text-xs font-bold uppercase tracking-wider shadow-lg">Kontakt</a>
+                    
+                    <!-- Burger Menu Button (Larger touch target) -->
+                    <button id="mobile-menu-btn" aria-label="Menü umschalten" class="text-gray-300 hover:text-brand-gold focus:outline-none p-2 ml-1">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown (Vollflächig optimiert) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 backdrop-blur-xl border-b border-white/10 absolute w-full shadow-2xl origin-top transition-all">
+            <nav class="flex flex-col px-6 pt-4 pb-8 space-y-6">
+                <a href="#angebote" class="text-gray-300 hover:text-brand-gold transition-colors text-sm font-medium uppercase tracking-wider block border-b border-white/5 pb-3">Angebote</a>
+                <a href="#leistungen" class="text-gray-300 hover:text-brand-gold transition-colors text-sm font-medium uppercase tracking-wider block border-b border-white/5 pb-3">Leistungen</a>
+                <a href="#qualitaet" class="text-gray-300 hover:text-brand-gold transition-colors text-sm font-medium uppercase tracking-wider block border-b border-white/5 pb-3">Qualität</a>
+                <a href="#faq" class="text-gray-300 hover:text-brand-gold transition-colors text-sm font-medium uppercase tracking-wider block border-b border-white/5 pb-3">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-[90vh] flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-no-repeat bg-fixed pt-20 md:pt-24">
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-6 leading-tight mt-10 md:mt-0">
+                Wir bringen Ihr Fahrzeug <br class="hidden sm:block">
+                an den <span class="text-gold-gradient font-bold">passenden Käufer.</span>
+            </h1>
+            
+            <p class="text-base sm:text-lg md:text-xl text-gray-300 mb-10 md:mb-12 max-w-2xl mx-auto font-light leading-relaxed px-2">
+                Profitieren Sie von einem <span class="text-brand-gold font-semibold">bestmöglichen Verkaufspreis</span> bei <span class="text-white font-semibold border-b border-brand-gold pb-1">minimalem</span> Eigenaufwand.
+            </p>
+
+            <div class="flex flex-col items-center gap-4">
+                <a href="#kontakt" class="btn-gold text-white px-6 sm:px-8 py-4 rounded-sm text-sm md:text-base font-bold tracking-widest uppercase inline-flex flex-col items-center w-full sm:w-auto">
+                    Kontaktieren Sie mich
+                    <span class="text-xs font-normal opacity-90 mt-1 tracking-normal">für eine unverbindliche</span>
+                </a>
+                <div class="flex items-center gap-2 sm:gap-3 relative -mt-3 md:-mt-4">
+                    <span class="font-cursive text-3xl sm:text-4xl md:text-6xl text-brand-gold -rotate-2 shadow-black drop-shadow-lg">Besprechung!</span>
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 text-brand-gold -mb-6 md:-mb-8 rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path></svg>
+                </div>
+            </div>
+
+            <div class="mt-16 inline-block border-b border-gray-500 pb-1">
+                <p class="text-gray-400 text-xs sm:text-sm tracking-wider">kleinanzeigen.de/s-bestandsl...</p>
+            </div>
+        </div>
+        
+        <!-- Bottom gradient fade -->
+        <div class="absolute bottom-0 w-full h-24 md:h-32 bg-gradient-to-t from-[#050505] to-transparent"></div>
+    </section>
+
+    <!-- ABOUT & FEATURES (Responsive Padding: py-16 on mobile, py-24 on desktop) -->
+    <section class="py-16 md:py-24 bg-[#050505]" id="about">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16">
+                
+                <!-- Intro Text -->
+                <div class="lg:col-span-5 flex flex-col justify-center">
+                    <span class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-3">Das sind wir</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ihr Experte für Fahrzeugvermittlung</h2>
+                    <p class="text-gray-400 leading-relaxed mb-6 text-sm sm:text-base">
+                        Als dynamisches und fokussiertes Team kombinieren wir tiefe Branchenkenntnis mit modernsten, datengestützten Analyseverfahren. Anstatt uns auf veralteten Standards auszuruhen, nutzen wir innovative Vermarktungsstrategien und unser weitreichendes Netzwerk, um das perfekte Fahrzeug für Sie zu finden oder Ihren Gebrauchten zum Bestpreis zu vermitteln.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed text-sm sm:text-base">
+                        Egal ob Neuwagen, Jahreswagen, Gebrauchtwagen, Anhänger oder Motorräder – wir sind Ihr verlässlicher, agiler Partner.
+                    </p>
+                </div>
+
+                <!-- 4 Blurbs / Features -->
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-brand-gray p-6 md:p-8 rounded-sm border border-white/5 hover:border-brand-gold/30 transition-colors group">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded bg-brand-gold/10 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-chart-line text-xl md:text-2xl text-brand-gold"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-semibold text-white mb-2 md:mb-3">Marktexpertise & Dynamik</h3>
+                        <p class="text-gray-400 text-xs md:text-sm leading-relaxed">Mit einem fundierten Verständnis für den aktuellen Automobilmarkt und präzisen Analysemethoden sichern wir Ihnen eine optimale Beratung. Transparent und stets am Puls der Zeit.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="bg-brand-gray p-6 md:p-8 rounded-sm border border-white/5 hover:border-brand-gold/30 transition-colors group">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded bg-brand-gold/10 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-users text-xl md:text-2xl text-brand-gold"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-semibold text-white mb-2 md:mb-3">Individuelle Beratung</h3>
+                        <p class="text-gray-400 text-xs md:text-sm leading-relaxed">Jeder Kunde hat individuelle Bedürfnisse und Anforderungen. Wir nehmen uns die Zeit, diese zu verstehen und das passende Fahrzeug für Sie zu finden.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="bg-brand-gray p-6 md:p-8 rounded-sm border border-white/5 hover:border-brand-gold/30 transition-colors group">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded bg-brand-gold/10 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-handshake text-xl md:text-2xl text-brand-gold"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-semibold text-white mb-2 md:mb-3">Rundum-Service</h3>
+                        <p class="text-gray-400 text-xs md:text-sm leading-relaxed">Von der Beratung über die Vermittlung bis hin zur Kaufabwicklung – wir bieten Ihnen einen umfassenden Service aus einer Hand. Einfach und stressfrei.</p>
+                    </div>
+                    <!-- Feature 4 -->
+                    <div class="bg-brand-gray p-6 md:p-8 rounded-sm border border-white/5 hover:border-brand-gold/30 transition-colors group">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded bg-brand-gold/10 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-shield-alt text-xl md:text-2xl text-brand-gold"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-semibold text-white mb-2 md:mb-3">Vertrauen & Zuverlässigkeit</h3>
+                        <p class="text-gray-400 text-xs md:text-sm leading-relaxed">Bei uns stehen Vertrauen und Zuverlässigkeit an erster Stelle. Wir setzen auf transparente Kommunikation und faire Konditionen für Käufer und Verkäufer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AKTUELLE ANGEBOTE -->
+    <section class="py-16 md:py-24 bg-[#050505] border-t border-white/5" id="angebote">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header der Sektion -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-12 gap-6">
+                <div>
+                    <span class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 md:mb-3 block">Fahrzeugbestand</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Aktuelle Highlights</h2>
+                </div>
+                <!-- Legende / Teaser -->
+                <div class="flex flex-wrap gap-3 md:gap-4">
+                    <span class="bg-[#111] border border-brand-gold/50 text-brand-gold px-3 py-1.5 md:px-4 md:py-2 rounded-sm text-xs md:text-sm font-medium flex items-center shadow-[0_0_10px_rgba(212,175,55,0.1)]">
+                        <i class="fas fa-star mr-2"></i> Neuzugänge
+                    </span>
+                    <span class="bg-[#111] border border-red-500/50 text-red-400 px-3 py-1.5 md:px-4 md:py-2 rounded-sm text-xs md:text-sm font-medium flex items-center shadow-[0_0_10px_rgba(239,68,68,0.1)]">
+                        <i class="fas fa-arrow-trend-down mr-2"></i> Reduzierte Preise
+                    </span>
+                </div>
+            </div>
+
+            <!-- Fahrzeug Grid (Katalog Ansicht) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                
+                <!-- Fahrzeug 1: Neuzugang -->
+                <div class="bg-brand-gray border border-white/5 rounded-sm overflow-hidden group flex flex-col relative">
+                    <!-- Badge Neuzugang -->
+                    <div class="absolute top-4 left-4 z-20 bg-black/80 backdrop-blur text-brand-gold text-[0.65rem] md:text-xs font-bold px-3 py-1 uppercase tracking-widest border border-brand-gold/50 rounded-sm shadow-md">
+                        Neuzugang
+                    </div>
+                    <div class="h-48 md:h-56 overflow-hidden relative">
+                        <!-- PERFORMANCE: Lazy loading für Bilder unterhalb des sichtbaren Bereichs -->
+                        <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=800&auto=format&fit=crop" alt="Mercedes-Benz AMG GT" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-gray to-transparent"></div>
+                    </div>
+                    <div class="p-5 md:p-6 flex-grow flex flex-col">
+                        <h4 class="text-lg md:text-xl font-bold text-white mb-2">Mercedes-Benz AMG GT</h4>
+                        <p class="text-gray-400 text-xs md:text-sm mb-4">510 PS • 2021 • 34.000 km</p>
+                        <div class="mt-auto pt-4 border-t border-white/10 flex justify-between items-center">
+                            <span class="text-lg md:text-xl font-bold text-white">114.900 €</span>
+                            <a href="#kontakt" class="text-brand-gold hover:text-white transition-colors text-xs md:text-sm font-semibold uppercase tracking-wider">Anfragen <i class="fas fa-arrow-right ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fahrzeug 2: Reduziert -->
+                <div class="bg-brand-gray border border-white/5 rounded-sm overflow-hidden group flex flex-col relative">
+                    <!-- Badge Reduziert -->
+                    <div class="absolute top-4 left-4 z-20 bg-black/80 backdrop-blur text-red-400 text-[0.65rem] md:text-xs font-bold px-3 py-1 uppercase tracking-widest border border-red-500/50 rounded-sm shadow-md">
+                        Preis reduziert
+                    </div>
+                    <div class="h-48 md:h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1503376760364-531120a11a8a?q=80&w=800&auto=format&fit=crop" alt="Porsche 911 Carrera S" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-gray to-transparent"></div>
+                    </div>
+                    <div class="p-5 md:p-6 flex-grow flex flex-col">
+                        <h4 class="text-lg md:text-xl font-bold text-white mb-2">Porsche 911 Carrera S</h4>
+                        <p class="text-gray-400 text-xs md:text-sm mb-4">450 PS • 2020 • 28.500 km</p>
+                        <div class="mt-auto pt-4 border-t border-white/10 flex justify-between items-center">
+                            <div class="flex flex-col">
+                                <span class="text-gray-500 line-through text-[10px] md:text-xs">132.500 €</span>
+                                <span class="text-lg md:text-xl font-bold text-red-400">128.900 €</span>
+                            </div>
+                            <a href="#kontakt" class="text-brand-gold hover:text-white transition-colors text-xs md:text-sm font-semibold uppercase tracking-wider">Anfragen <i class="fas fa-arrow-right ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fahrzeug 3: Neuzugang -->
+                <div class="bg-brand-gray border border-white/5 rounded-sm overflow-hidden group flex flex-col relative">
+                    <div class="absolute top-4 left-4 z-20 bg-black/80 backdrop-blur text-brand-gold text-[0.65rem] md:text-xs font-bold px-3 py-1 uppercase tracking-widest border border-brand-gold/50 rounded-sm shadow-md">
+                        Neuzugang
+                    </div>
+                    <div class="h-48 md:h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=800&auto=format&fit=crop" alt="BMW M4 Competition" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-gray to-transparent"></div>
+                    </div>
+                    <div class="p-5 md:p-6 flex-grow flex flex-col">
+                        <h4 class="text-lg md:text-xl font-bold text-white mb-2">BMW M4 Competition</h4>
+                        <p class="text-gray-400 text-xs md:text-sm mb-4">510 PS • 2022 • 15.200 km</p>
+                        <div class="mt-auto pt-4 border-t border-white/10 flex justify-between items-center">
+                            <span class="text-lg md:text-xl font-bold text-white">89.900 €</span>
+                            <a href="#kontakt" class="text-brand-gold hover:text-white transition-colors text-xs md:text-sm font-semibold uppercase tracking-wider">Anfragen <i class="fas fa-arrow-right ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-10 md:mt-12 text-center">
+                <a href="#kontakt" class="inline-block border border-brand-gold/50 text-brand-gold hover:bg-brand-gold hover:text-black transition-all px-6 md:px-8 py-3 rounded-sm text-xs md:text-sm font-bold uppercase tracking-widest w-full sm:w-auto">
+                    Gesamten Bestand anfragen
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES (Leistungen) -->
+    <section class="py-16 md:py-24 bg-[#0a0a0a] border-t border-white/5" id="leistungen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+                <span class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 md:mb-3 block">Portfolio</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Alle Leistungen im Überblick</h2>
+                <div class="h-1 w-16 md:w-20 bg-brand-gold mx-auto rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <!-- Service 1 -->
+                <div class="bg-[#050505] border border-white/5 rounded-sm overflow-hidden group">
+                    <div class="h-40 md:h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=1036&auto=format&fit=crop" alt="Neuwagen" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent"></div>
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <h4 class="text-lg md:text-xl font-bold text-white mb-3 md:mb-4 group-hover:text-brand-gold transition-colors">Neuwagenvermittlung</h4>
+                        <p class="text-gray-400 text-xs md:text-sm leading-relaxed">Wir helfen Ihnen, das richtige Neufahrzeug zu finden. Dank unserer Erfahrung bieten wir Ihnen die besten Angebote, abgestimmt auf Ihre Wünsche.</p>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-[#050505] border border-white/5 rounded-sm overflow-hidden group">
+                    <div class="h-40 md:h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1064&auto=format&fit=crop" alt="Gebrauchtwagen" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent"></div>
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <h4 class="text-lg md:text-xl font-bold text-white mb-3 md:mb-4 group-hover:text-brand-gold transition-colors">Jahres- & Gebrauchtwagen</h4>
+                        <p class="text-gray-400 text-xs md:text-sm leading-relaxed">Wir prüfen und bewerten Fahrzeuge umfassend, um sicherzustellen, dass Sie ein Fahrzeug in einwandfreiem Zustand erhalten.</p>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-[#050505] border border-white/5 rounded-sm overflow-hidden group">
+                    <div class="h-40 md:h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1170&auto=format&fit=crop" alt="Motorrad" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent"></div>
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <h4 class="text-lg md:text-xl font-bold text-white mb-3 md:mb-4 group-hover:text-brand-gold transition-colors">Anhänger & Motorräder</h4>
+                        <p class="text-gray-400 text-xs md:text-sm leading-relaxed">Unser Netzwerk ermöglicht es uns, auch bei Anhängern oder Motorrädern genau das richtige Modell für Sie zu finden.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUALITY PROMISE -->
+    <section class="py-16 md:py-24 bg-brand-gray" id="qualitaet">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+                <!-- Image side -->
+                <div class="relative px-4 sm:px-0">
+                    <div class="absolute -inset-2 md:-inset-4 border-2 border-brand-gold/30 rounded-sm translate-x-3 translate-y-3 md:translate-x-4 md:translate-y-4"></div>
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1283&auto=format&fit=crop" alt="Qualitätskontrolle" loading="lazy" decoding="async" class="relative z-10 w-full h-auto object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
+                
+                <!-- Text side -->
+                <div>
+                    <span class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 md:mb-3 block">Sicherheit</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6">Unsere Qualitätsversprechen</h2>
+                    <p class="text-gray-400 mb-6 md:mb-8 text-sm md:text-base">Alle von uns vermittelten Fahrzeuge haben, wenn möglich:</p>
+                    
+                    <ul class="space-y-3 md:space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-brand-gold mt-1 mr-3 md:mr-4"></i>
+                            <span class="text-gray-300 text-sm md:text-base">Eine neue Haupt- und Abgasuntersuchung ohne Mängel</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-brand-gold mt-1 mr-3 md:mr-4"></i>
+                            <span class="text-gray-300 text-sm md:text-base">Einen aktuellen Service und Servicenachweis unter Berücksichtigung der Herstellervorgaben</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-brand-gold mt-1 mr-3 md:mr-4"></i>
+                            <span class="text-gray-300 text-sm md:text-base">Keinen Wartungsstau; der Fehlerspeicher im System ist ohne Einträge</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-brand-gold mt-1 mr-3 md:mr-4"></i>
+                            <span class="text-gray-300 text-sm md:text-base">Festgestellte Mängel werden professionell behoben</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-brand-gold mt-1 mr-3 md:mr-4"></i>
+                            <span class="text-gray-300 text-sm md:text-base">Eine Garantie, sei es herstellerseitig oder eine Gebrauchtwagengarantie mit 100% Deckungsumfang</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-16 md:py-24 bg-[#050505]" id="faq">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 md:mb-16">
+                <span class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 md:mb-3 block">Transparent informiert</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Häufig gestellte Fragen</h2>
+            </div>
+
+            <div class="space-y-3 md:space-y-4">
+                <!-- FAQ Item 1 -->
+                <details class="group bg-brand-gray border border-white/10 rounded-sm overflow-hidden" open>
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 md:p-6 text-white hover:text-brand-gold transition-colors">
+                        <span class="text-base md:text-lg pr-4">Wie lange dauert die Vermittlung eines Fahrzeugs?</span>
+                        <span class="transition group-open:rotate-180 flex-shrink-0">
+                            <i class="fas fa-chevron-down text-brand-gold"></i>
+                        </span>
+                    </summary>
+                    <div class="text-gray-400 px-5 md:px-6 pb-5 md:pb-6 leading-relaxed text-sm md:text-base">
+                        Die Dauer der Vermittlung hängt von Ihren spezifischen Anforderungen und der Verfügbarkeit der Fahrzeuge ab. In der Regel können wir jedoch innerhalb weniger Tage bis Wochen ein passendes Fahrzeug für Sie finden.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 2 -->
+                <details class="group bg-brand-gray border border-white/10 rounded-sm overflow-hidden">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 md:p-6 text-white hover:text-brand-gold transition-colors">
+                        <span class="text-base md:text-lg pr-4">Was kostet die Fahrzeugvermittlung?</span>
+                        <span class="transition group-open:rotate-180 flex-shrink-0">
+                            <i class="fas fa-chevron-down text-brand-gold"></i>
+                        </span>
+                    </summary>
+                    <div class="text-gray-400 px-5 md:px-6 pb-5 md:pb-6 leading-relaxed text-sm md:text-base">
+                        Unsere Vermittlungsgebühren richten sich nach dem Wert des Fahrzeugs und dem Umfang der gewünschten Leistungen. Kontaktieren Sie uns für ein unverbindliches Angebot.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 3 -->
+                <details class="group bg-brand-gray border border-white/10 rounded-sm overflow-hidden">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 md:p-6 text-white hover:text-brand-gold transition-colors">
+                        <span class="text-base md:text-lg pr-4">Kann ich mein altes Fahrzeug in Zahlung geben?</span>
+                        <span class="transition group-open:rotate-180 flex-shrink-0">
+                            <i class="fas fa-chevron-down text-brand-gold"></i>
+                        </span>
+                    </summary>
+                    <div class="text-gray-400 px-5 md:px-6 pb-5 md:pb-6 leading-relaxed text-sm md:text-base">
+                        Ja, wir bieten Ihnen die Möglichkeit, Ihr altes Fahrzeug in Zahlung zu geben. Unsere Experten bewerten Ihr Fahrzeug fair und transparent.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 4 -->
+                <details class="group bg-brand-gray border border-white/10 rounded-sm overflow-hidden">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 md:p-6 text-white hover:text-brand-gold transition-colors">
+                        <span class="text-base md:text-lg pr-4">Welche Fahrzeugtypen vermitteln Sie?</span>
+                        <span class="transition group-open:rotate-180 flex-shrink-0">
+                            <i class="fas fa-chevron-down text-brand-gold"></i>
+                        </span>
+                    </summary>
+                    <div class="text-gray-400 px-5 md:px-6 pb-5 md:pb-6 leading-relaxed text-sm md:text-base">
+                        Wir vermitteln Neuwagen, Jahreswagen, Gebrauchtwagen, Anhänger und Motorräder aller gängigen Marken und Modelle.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="py-16 md:py-24 bg-brand-gray border-t border-white/5 relative" id="kontakt">
+        <!-- Abstract background accent -->
+        <div class="absolute top-0 right-0 w-full md:w-1/2 h-full bg-brand-gold/5 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
+                <!-- Text -->
+                <div>
+                    <span class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 md:mb-3 block">Direkter Draht</span>
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6">Kontaktieren Sie uns</h2>
+                    <p class="text-gray-400 mb-8 text-sm md:text-base leading-relaxed">
+                        Sie suchen ein neues Auto, einen Jahreswagen, einen Gebrauchtwagen, einen Anhänger oder ein Motorrad? Kontaktieren Sie uns noch heute und lassen Sie sich von unseren Experten beraten.
+                    </p>
+                    
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-[#050505] rounded border border-white/10 flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-phone text-brand-gold"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs md:text-sm text-gray-500">Rufen Sie uns an</p>
+                                <a href="tel:+4915221649835" class="text-white text-sm md:text-base font-semibold hover:text-brand-gold transition-colors break-all">+49 (0) 152 216 498 35</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-[#050505] rounded border border-white/10 flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-envelope text-brand-gold"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs md:text-sm text-gray-500">Schreiben Sie uns</p>
+                                <a href="mailto:info@wir-beschaffen-dein-auto.de" class="text-white text-sm md:text-base font-semibold hover:text-brand-gold transition-colors break-all">info@wir-beschaffen-dein-auto.de</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-[#050505] rounded border border-white/10 flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-brand-gold"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs md:text-sm text-gray-500">Unser Standort</p>
+                                <span class="text-white text-sm md:text-base font-semibold">Dr. Lehmann Weg 10, 37603 Holzminden</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="bg-[#050505] p-6 md:p-8 rounded-sm border border-white/10 shadow-2xl">
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Kontakt Anfrage</h3>
+                    <p class="text-gray-400 text-sm md:text-base mb-6 md:mb-8">Wie können wir Ihnen helfen?</p>
+                    
+                    <form action="#" method="POST" class="space-y-5 md:space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+                            <div>
+                                <label for="first_name" class="block text-xs md:text-sm font-medium text-gray-400 mb-1.5 md:mb-2">Vorname *</label>
+                                <input type="text" id="first_name" name="first_name" required class="w-full bg-brand-gray border border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base text-white focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors">
+                            </div>
+                            <div>
+                                <label for="last_name" class="block text-xs md:text-sm font-medium text-gray-400 mb-1.5 md:mb-2">Nachname *</label>
+                                <input type="text" id="last_name" name="last_name" required class="w-full bg-brand-gray border border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base text-white focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-xs md:text-sm font-medium text-gray-400 mb-1.5 md:mb-2">E-Mail *</label>
+                            <input type="email" id="email" name="email" required class="w-full bg-brand-gray border border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base text-white focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-xs md:text-sm font-medium text-gray-400 mb-1.5 md:mb-2">Ihre Nachricht *</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full bg-brand-gray border border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base text-white focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"></textarea>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="gdpr" name="gdpr" type="checkbox" required class="w-4 h-4 bg-brand-gray border-white/10 rounded text-brand-gold focus:ring-brand-gold focus:ring-offset-[#050505]">
+                            </div>
+                            <div class="ml-3 text-xs md:text-sm">
+                                <label for="gdpr" class="text-gray-400">Ich bin damit einverstanden, dass diese Website meine eingereichten Informationen speichert, damit sie auf meine Anfrage antworten können.</label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="w-full btn-gold text-white font-bold py-3 md:py-4 rounded-sm uppercase tracking-widest text-xs md:text-sm hover:shadow-lg transition-all mt-2">
+                            Nachricht absenden
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-10 md:py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-gray-500 text-xs md:text-sm text-center md:text-left">
+                    &copy; 2026 Westdeutsche Fahrzeugvermittlung UG (haftungsbeschränkt). Alle Rechte vorbehalten.
+                </div>
+                <div class="flex flex-wrap justify-center gap-4 md:gap-6 text-xs md:text-sm font-medium">
+                    <a href="#" class="text-gray-400 hover:text-brand-gold transition-colors">KONTAKT</a>
+                    <a href="#" class="text-gray-400 hover:text-brand-gold transition-colors">IMPRESSUM</a>
+                    <a href="#" class="text-gray-400 hover:text-brand-gold transition-colors">DATENSCHUTZ</a>
+                    <a href="#" class="text-gray-400 hover:text-brand-gold transition-colors">WIDERRUFSBELEHRUNG</a>
+                    <a href="#" class="text-gray-400 hover:text-brand-gold transition-colors">AGB</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logik für das Mobile Burger-Menü (Sandwichleiste) -->
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        // Sicherheitsabfrage, um Fehler zu vermeiden, falls die Elemente fehlen
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', function() {
+                // Wechselt die Sichtbarkeit des Menüs
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Menü schließen, sobald ein Link geklickt wurde
+            const mobileLinks = document.querySelectorAll('#mobile-menu a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
