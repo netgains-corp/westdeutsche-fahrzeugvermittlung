@@ -9,7 +9,7 @@
     <meta name="description" content="Wir finden Ihr Wunschfahrzeug. Exklusiver Zugang zu internationalen Fahrzeugkollektionen und Premium-Gebrauchtwagen in Sohren. Jetzt unverbindlich anfragen.">
     <meta name="keywords" content="Fahrzeugvermittlung, Car Hunting, Premium Autos, Gebrauchtwagen, Sportwagen, Sohren">
     
-    <!-- SEO: Open Graph (Social Media Sharing) -->
+    <!-- SEO: Open Graph -->
     <meta property="og:title" content="Westdeutsche Fahrzeugvermittlung | Premium Car Hunting">
     <meta property="og:description" content="Profitieren Sie von einem bestmöglichen Verkaufspreis oder lassen Sie uns Ihr Wunschfahrzeug finden.">
     <meta property="og:type" content="website">
@@ -33,52 +33,25 @@
     }
     </script>
 
-    <!-- PERFORMANCE: Preload LCP Image & Preconnects -->
+    <!-- PERFORMANCE: Preconnects für externe Ressourcen -->
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2069&auto=format&fit=crop" fetchpriority="high">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- PERFORMANCE: LCP Image Preload (Optimierte Bildgröße für Ladezeit) -->
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=60&w=1200&auto=format&fit=crop" fetchpriority="high">
+    
+    <!-- STATISCHES CSS (Produktionsbereit - Ersetzt das langsame Tailwind CDN) -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome -->
+    <!-- FontAwesome (Asynchron geladen um Render-Blocking zu verhindern) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
-    <!-- Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class', // Aktiviert den Class-basierten Dark Mode Toggle
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
-                        cursive: ['Caveat', 'cursive'],
-                    },
-                    colors: {
-                        brand: {
-                            dark: '#0a0a0a',
-                            gray: '#171717',
-                            light: '#f5f5f5',
-                            gold: '#d4af37',
-                            goldGradientStart: '#eab308',
-                            goldGradientEnd: '#b45309',
-                        }
-                    },
-                    backgroundImage: {
-                        'hero-pattern': "linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2069&auto=format&fit=crop')",
-                        'gold-gradient': "linear-gradient(to right, #eab308, #b45309)",
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- Anti-FOUC Script (Vermeidet Flackern beim Laden, wenn Light Mode gewählt wurde) -->
+    <!-- Anti-FOUC Script -->
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -89,7 +62,7 @@
 
     <style>
         body {
-            /* Hardware acceleration für weicheres Rendering */
+            /* Hardware acceleration für Text-Rendering */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -139,9 +112,8 @@
             <div class="flex justify-between items-center h-20 md:h-24">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <!-- ACCESSIBILITY: aria-label und focus-ring hinzugefügt -->
                     <a href="#top" aria-label="Zur Startseite" class="flex items-center gap-3 md:gap-4 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm">
-                        <img src="Westdeutsche.webp" alt="Westdeutsche Fahrzeugvermittlung Adler Logo" class="h-12 md:h-16 lg:h-20 w-auto object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/171717/d4af37?text=Adler'">
+                        <img src="Westdeutsche.webp" alt="Westdeutsche Fahrzeugvermittlung Adler Logo" width="80" height="80" class="h-12 md:h-16 lg:h-20 w-auto object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/171717/d4af37?text=Adler'">
                         <div class="flex flex-col hidden sm:flex">
                             <span class="text-gray-900 dark:text-white font-bold text-lg md:text-xl lg:text-2xl tracking-[0.15em] leading-none">WESTDEUTSCHE</span>
                             <span class="text-brand-gold text-[0.60rem] md:text-xs tracking-[0.25em] font-medium mt-1">FAHRZEUGVERMITTLUNG</span>
@@ -158,7 +130,7 @@
                     <a href="#faq" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-[10px] lg:text-xs xl:text-sm font-medium uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm px-1">FAQ</a>
                     
                     <!-- Theme Toggle Button -->
-                    <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-lg text-sm p-2 transition-colors" aria-label="Dark Mode umschalten">
+                    <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-lg text-sm p-2.5 transition-colors" aria-label="Dark Mode umschalten">
                         <i id="theme-toggle-dark-icon" class="fas fa-moon hidden text-lg" aria-hidden="true"></i>
                         <i id="theme-toggle-light-icon" class="fas fa-sun hidden text-lg" aria-hidden="true"></i>
                     </button>
@@ -176,7 +148,7 @@
 
                     <a href="#kontakt" class="btn-gold text-white px-3 py-2 rounded-sm text-xs font-bold uppercase tracking-wider shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold">Kontakt</a>
                     
-                    <!-- ACCESSIBILITY: aria-expanded und aria-controls hinzugefügt -->
+                    <!-- Mobile Menu Button -->
                     <button id="mobile-menu-btn" aria-label="Menü umschalten" aria-expanded="false" aria-controls="mobile-menu" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm p-2 ml-1">
                         <i class="fas fa-bars text-2xl" aria-hidden="true"></i>
                     </button>
@@ -196,7 +168,7 @@
         </div>
     </header>
 
-    <!-- HERO SECTION (Bleibt immer dunkel wegen dem dunklen Hintergrundbild) -->
+    <!-- HERO SECTION -->
     <section class="relative min-h-[90vh] flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-no-repeat bg-fixed pt-20 md:pt-24">
         <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
             
@@ -220,7 +192,7 @@
                 </div>
             </div>
 
-            <!-- Neuer Kleinanzeigen Button -->
+            <!-- Kleinanzeigen Button -->
             <div class="mt-12 md:mt-16">
                 <a href="https://www.kleinanzeigen.de/s-bestandsliste.html?userId=160510965" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#86b817] hover:bg-[#729e12] text-white transition-all duration-300 px-6 py-3 rounded-sm text-xs sm:text-sm font-bold tracking-wide shadow-[0_4px_15px_rgba(134,184,23,0.2)] hover:shadow-[0_6px_20px_rgba(134,184,23,0.4)] transform hover:-translate-y-0.5">
                     Unsere Angebote direkt auf <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Kleinanzeigen_logo.svg" alt="Kleinanzeigen" class="h-4 sm:h-5 ml-1 brightness-0 invert" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"><span style="display:none;" class="font-bold">Kleinanzeigen</span>
@@ -229,7 +201,7 @@
             </div>
         </div>
         
-        <!-- Bottom gradient fade (Passt sich dem Theme an) -->
+        <!-- Bottom gradient fade -->
         <div class="absolute bottom-0 w-full h-24 md:h-32 bg-gradient-to-t from-gray-50 dark:from-[#050505] to-transparent"></div>
     </section>
 
@@ -285,11 +257,11 @@
         </div>
     </section>
 
-    <!-- WUNSCHFAHRZEUG (Car Hunting - Ersetzt Aktuelle Angebote) -->
+    <!-- WUNSCHFAHRZEUG (Car Hunting) -->
     <section class="py-20 md:py-32 bg-[#050505] relative overflow-hidden border-t border-gray-200 dark:border-white/5" id="wunschfahrzeug">
-        <!-- Background Image with Overlay -->
+        <!-- Background Image with Overlay. Reduziert auf q=60 und w=1200 für mobile Perfomance. -->
         <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=2070&auto=format&fit=crop" alt="Premium Fahrzeugkollektion" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-20 dark:opacity-40 transition-all duration-1000">
+            <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=60&w=1200&auto=format&fit=crop" alt="Premium Fahrzeugkollektion" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-20 dark:opacity-40 transition-all duration-1000">
             <div class="absolute inset-0 bg-gradient-to-r from-gray-50 via-gray-50/95 dark:from-[#050505] dark:via-[#050505]/90 to-transparent"></div>
         </div>
         
@@ -325,7 +297,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 <div class="bg-gray-50 dark:bg-[#050505] border border-gray-200 dark:border-white/5 rounded-sm overflow-hidden group shadow-sm dark:shadow-none">
                     <div class="h-40 md:h-48 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=1036&auto=format&fit=crop" alt="Neuwagen" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 dark:opacity-80">
+                        <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=60&w=600&auto=format&fit=crop" alt="Neuwagen" loading="lazy" decoding="async" width="600" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 dark:opacity-80">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-[#050505] to-transparent"></div>
                     </div>
                     <div class="p-6 md:p-8 relative z-10 bg-gray-50 dark:bg-[#050505]">
@@ -336,7 +308,7 @@
 
                 <div class="bg-gray-50 dark:bg-[#050505] border border-gray-200 dark:border-white/5 rounded-sm overflow-hidden group shadow-sm dark:shadow-none">
                     <div class="h-40 md:h-48 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1064&auto=format&fit=crop" alt="Gebrauchtwagen" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 dark:opacity-80">
+                        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=60&w=600&auto=format&fit=crop" alt="Gebrauchtwagen" loading="lazy" decoding="async" width="600" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 dark:opacity-80">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-[#050505] to-transparent"></div>
                     </div>
                     <div class="p-6 md:p-8 relative z-10 bg-gray-50 dark:bg-[#050505]">
@@ -347,7 +319,7 @@
 
                 <div class="bg-gray-50 dark:bg-[#050505] border border-gray-200 dark:border-white/5 rounded-sm overflow-hidden group shadow-sm dark:shadow-none">
                     <div class="h-40 md:h-48 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1170&auto=format&fit=crop" alt="Motorrad" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 dark:opacity-80">
+                        <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=60&w=600&auto=format&fit=crop" alt="Motorrad" loading="lazy" decoding="async" width="600" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 dark:opacity-80">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-[#050505] to-transparent"></div>
                     </div>
                     <div class="p-6 md:p-8 relative z-10 bg-gray-50 dark:bg-[#050505]">
@@ -365,7 +337,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
                 <div class="relative px-4 sm:px-0">
                     <div class="absolute -inset-2 md:-inset-4 border-2 border-brand-gold/50 dark:border-brand-gold/30 rounded-sm translate-x-3 translate-y-3 md:translate-x-4 md:translate-y-4"></div>
-                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1283&auto=format&fit=crop" alt="Qualitätskontrolle" loading="lazy" decoding="async" class="relative z-10 w-full h-auto object-cover rounded-sm transition-all duration-700 shadow-xl dark:shadow-none">
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=60&w=800&auto=format&fit=crop" alt="Qualitätskontrolle" loading="lazy" decoding="async" width="800" height="533" class="relative z-10 w-full h-auto object-cover rounded-sm transition-all duration-700 shadow-xl dark:shadow-none">
                 </div>
                 
                 <div>
@@ -438,7 +410,7 @@
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
                     <p class="text-gray-600 dark:text-gray-300 text-sm md:text-base italic leading-relaxed mb-6 flex-grow">
-                        "Reibungsloser Ablauf und absolute Transparenz. Mein Porsche wurde innerhalb von 2 Wochen zum Bestpreis vermittelt, ohne dass ich mich um Probefahrten oder Inserate kümmern musste. Jederzeit wieder!"
+                        "Reibungsloser Ablauf und absolute Transparenz. Mein Porsche wurde innerhalb von 2 Wochen zum Bestpreis vermittelt, ohne dass ich mich um Probefahrten kümmern musste."
                     </p>
                     <div class="flex items-center gap-4 mt-auto">
                         <div class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold font-bold">
@@ -457,7 +429,7 @@
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
                     <p class="text-gray-600 dark:text-gray-300 text-sm md:text-base italic leading-relaxed mb-6 flex-grow">
-                        "Als Laie fühlte ich mich perfekt an die Hand genommen. Das Car Hunting Team hat mir genau den BMW M4 besorgt, den ich monatelang vergeblich auf dem freien Markt gesucht habe. Top Service!"
+                        "Als Laie fühlte ich mich perfekt an die Hand genommen. Das Car Hunting Team hat mir genau den BMW M4 besorgt, den ich monatelang vergeblich gesucht habe."
                     </p>
                     <div class="flex items-center gap-4 mt-auto">
                         <div class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold font-bold">
@@ -476,7 +448,7 @@
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
                     <p class="text-gray-600 dark:text-gray-300 text-sm md:text-base italic leading-relaxed mb-6 flex-grow">
-                        "Professionell, schnell und äußerst diskret. Die Qualität der Fahrzeugaufbereitung vor der Übergabe war makellos. Eine klare Empfehlung für jeden, der Wert auf Exklusivität und Sicherheit legt."
+                        "Professionell, schnell und äußerst diskret. Die Qualität der Fahrzeugaufbereitung vor der Übergabe war makellos. Klare Empfehlung für Exklusivität."
                     </p>
                     <div class="flex items-center gap-4 mt-auto">
                         <div class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold font-bold">
@@ -751,9 +723,12 @@
             setToggleIcon();
         }
 
-        themeToggleBtnDesktop.addEventListener('click', handleThemeToggle);
-        themeToggleBtnMobile.addEventListener('click', handleThemeToggle);
-
+        if (themeToggleBtnDesktop) {
+            themeToggleBtnDesktop.addEventListener('click', handleThemeToggle);
+        }
+        if (themeToggleBtnMobile) {
+            themeToggleBtnMobile.addEventListener('click', handleThemeToggle);
+        }
     </script>
 </body>
 </html>
