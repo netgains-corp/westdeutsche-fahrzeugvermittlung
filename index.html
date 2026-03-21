@@ -3,10 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westdeutsche Fahrzeugvermittlung</title>
+    <title>Westdeutsche Fahrzeugvermittlung | Premium Car Hunting</title>
     
-    <!-- PERFORMANCE: Preload LCP (Largest Contentful Paint) Image -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2069&auto=format&fit=crop">
+    <!-- SEO: Meta Tags -->
+    <meta name="description" content="Wir finden Ihr Wunschfahrzeug. Exklusiver Zugang zu internationalen Fahrzeugkollektionen und Premium-Gebrauchtwagen in Sohren. Jetzt unverbindlich anfragen.">
+    <meta name="keywords" content="Fahrzeugvermittlung, Car Hunting, Premium Autos, Gebrauchtwagen, Sportwagen, Sohren">
+    
+    <!-- SEO: Open Graph (Social Media Sharing) -->
+    <meta property="og:title" content="Westdeutsche Fahrzeugvermittlung | Premium Car Hunting">
+    <meta property="og:description" content="Profitieren Sie von einem bestmöglichen Verkaufspreis oder lassen Sie uns Ihr Wunschfahrzeug finden.">
+    <meta property="og:type" content="website">
+    
+    <!-- SEO: Local Business Schema (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoDealer",
+      "name": "Westdeutsche Fahrzeugvermittlung UG (haftungsbeschränkt)",
+      "image": "Westdeutsche.webp",
+      "telephone": "+4915168586425",
+      "email": "westdeutschefahrzeugvermittlung@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Diller Weg 23",
+        "postalCode": "55487",
+        "addressLocality": "Sohren",
+        "addressCountry": "DE"
+      }
+    }
+    </script>
+
+    <!-- PERFORMANCE: Preload LCP Image & Preconnects -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2069&auto=format&fit=crop" fetchpriority="high">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -102,7 +131,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 dark:bg-[#050505] dark:text-[#e5e5e5] selection:bg-brand-gold selection:text-white">
+<body id="top" class="bg-gray-50 text-gray-900 dark:bg-[#050505] dark:text-[#e5e5e5] selection:bg-brand-gold selection:text-white">
 
     <!-- HEADER / NAVIGATION -->
     <header class="fixed w-full top-0 z-50 bg-white/90 dark:bg-black/90 backdrop-blur-md border-b border-gray-200 dark:border-white/10 transition-all duration-300">
@@ -110,7 +139,8 @@
             <div class="flex justify-between items-center h-20 md:h-24">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="#" class="flex items-center gap-3 md:gap-4 group">
+                    <!-- ACCESSIBILITY: aria-label und focus-ring hinzugefügt -->
+                    <a href="#top" aria-label="Zur Startseite" class="flex items-center gap-3 md:gap-4 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm">
                         <img src="Westdeutsche.webp" alt="Westdeutsche Fahrzeugvermittlung Adler Logo" class="h-12 md:h-16 lg:h-20 w-auto object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/171717/d4af37?text=Adler'">
                         <div class="flex flex-col hidden sm:flex">
                             <span class="text-gray-900 dark:text-white font-bold text-lg md:text-xl lg:text-2xl tracking-[0.15em] leading-none">WESTDEUTSCHE</span>
@@ -121,32 +151,33 @@
                 
                 <!-- Desktop Menu -->
                 <nav class="hidden md:flex items-center space-x-4 lg:space-x-8">
-                    <a href="#angebote" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-xs lg:text-sm font-medium uppercase tracking-wider">Angebote</a>
-                    <a href="#leistungen" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-xs lg:text-sm font-medium uppercase tracking-wider">Leistungen</a>
-                    <a href="#qualitaet" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-xs lg:text-sm font-medium uppercase tracking-wider">Qualität</a>
-                    <a href="#faq" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-xs lg:text-sm font-medium uppercase tracking-wider">FAQ</a>
+                    <a href="#wunschfahrzeug" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-xs lg:text-sm font-medium uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm px-1">Wunschfahrzeug</a>
+                    <a href="#leistungen" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-xs lg:text-sm font-medium uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm px-1">Leistungen</a>
+                    <a href="#qualitaet" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-xs lg:text-sm font-medium uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm px-1">Qualität</a>
+                    <a href="#faq" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-xs lg:text-sm font-medium uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm px-1">FAQ</a>
                     
                     <!-- Theme Toggle Button -->
-                    <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none rounded-lg text-sm p-2.5 transition-colors" aria-label="Toggle Dark Mode">
-                        <i id="theme-toggle-dark-icon" class="fas fa-moon hidden text-lg"></i>
-                        <i id="theme-toggle-light-icon" class="fas fa-sun hidden text-lg"></i>
+                    <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-lg text-sm p-2.5 transition-colors" aria-label="Dark Mode umschalten">
+                        <i id="theme-toggle-dark-icon" class="fas fa-moon hidden text-lg" aria-hidden="true"></i>
+                        <i id="theme-toggle-light-icon" class="fas fa-sun hidden text-lg" aria-hidden="true"></i>
                     </button>
 
-                    <a href="#kontakt" class="btn-gold text-white px-5 py-2 lg:px-6 lg:py-2 rounded-sm text-xs lg:text-sm font-bold uppercase tracking-wider shadow-lg">Kontakt</a>
+                    <a href="#kontakt" class="btn-gold text-white px-5 py-2 lg:px-6 lg:py-2 rounded-sm text-xs lg:text-sm font-bold uppercase tracking-wider shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#050505]">Kontakt</a>
                 </nav>
 
                 <!-- Mobile Header Elements -->
                 <div class="flex md:hidden items-center gap-2 sm:gap-3">
                     <!-- Mobile Theme Toggle -->
-                    <button id="theme-toggle-mobile" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none rounded-lg text-sm p-2 transition-colors">
-                        <i id="theme-toggle-dark-icon-mobile" class="fas fa-moon hidden text-lg"></i>
-                        <i id="theme-toggle-light-icon-mobile" class="fas fa-sun hidden text-lg"></i>
+                    <button id="theme-toggle-mobile" type="button" aria-label="Dark Mode umschalten" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-lg text-sm p-2 transition-colors">
+                        <i id="theme-toggle-dark-icon-mobile" class="fas fa-moon hidden text-lg" aria-hidden="true"></i>
+                        <i id="theme-toggle-light-icon-mobile" class="fas fa-sun hidden text-lg" aria-hidden="true"></i>
                     </button>
 
-                    <a href="#kontakt" class="btn-gold text-white px-3 py-2 rounded-sm text-xs font-bold uppercase tracking-wider shadow-lg">Kontakt</a>
+                    <a href="#kontakt" class="btn-gold text-white px-3 py-2 rounded-sm text-xs font-bold uppercase tracking-wider shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold">Kontakt</a>
                     
-                    <button id="mobile-menu-btn" aria-label="Menü umschalten" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold focus:outline-none p-2 ml-1">
-                        <i class="fas fa-bars text-2xl"></i>
+                    <!-- ACCESSIBILITY: aria-expanded und aria-controls hinzugefügt -->
+                    <button id="mobile-menu-btn" aria-label="Menü umschalten" aria-expanded="false" aria-controls="mobile-menu" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm p-2 ml-1">
+                        <i class="fas fa-bars text-2xl" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -155,7 +186,7 @@
         <!-- Mobile Menu Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl border-b border-gray-200 dark:border-white/10 absolute w-full shadow-2xl origin-top transition-all">
             <nav class="flex flex-col px-6 pt-4 pb-8 space-y-6">
-                <a href="#angebote" class="text-gray-800 dark:text-gray-300 hover:text-brand-gold transition-colors text-sm font-medium uppercase tracking-wider block border-b border-gray-200 dark:border-white/5 pb-3">Angebote</a>
+                <a href="#wunschfahrzeug" class="text-gray-800 dark:text-gray-300 hover:text-brand-gold transition-colors text-sm font-medium uppercase tracking-wider block border-b border-gray-200 dark:border-white/5 pb-3">Wunschfahrzeug</a>
                 <a href="#leistungen" class="text-gray-800 dark:text-gray-300 hover:text-brand-gold transition-colors text-sm font-medium uppercase tracking-wider block border-b border-gray-200 dark:border-white/5 pb-3">Leistungen</a>
                 <a href="#qualitaet" class="text-gray-800 dark:text-gray-300 hover:text-brand-gold transition-colors text-sm font-medium uppercase tracking-wider block border-b border-gray-200 dark:border-white/5 pb-3">Qualität</a>
                 <a href="#faq" class="text-gray-800 dark:text-gray-300 hover:text-brand-gold transition-colors text-sm font-medium uppercase tracking-wider block border-b border-gray-200 dark:border-white/5 pb-3">FAQ</a>
@@ -187,8 +218,12 @@
                 </div>
             </div>
 
-            <div class="mt-16 inline-block border-b border-gray-500 pb-1">
-                <p class="text-gray-400 text-xs sm:text-sm tracking-wider">kleinanzeigen.de/s-bestandsl...</p>
+            <!-- Neuer Kleinanzeigen Button -->
+            <div class="mt-12 md:mt-16">
+                <a href="https://www.kleinanzeigen.de/s-bestandsliste.html?userId=160510965" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#86b817] hover:bg-[#729e12] text-white transition-all duration-300 px-6 py-3 rounded-sm text-xs sm:text-sm font-bold tracking-wide shadow-[0_4px_15px_rgba(134,184,23,0.2)] hover:shadow-[0_6px_20px_rgba(134,184,23,0.4)] transform hover:-translate-y-0.5">
+                    Unsere Angebote direkt auf <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Kleinanzeigen_logo.svg" alt="Kleinanzeigen" class="h-4 sm:h-5 ml-1 brightness-0 invert" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"><span style="display:none;" class="font-bold">Kleinanzeigen</span>
+                    <i class="fas fa-external-link-alt ml-1 text-[10px] opacity-80"></i>
+                </a>
             </div>
         </div>
         
@@ -248,92 +283,29 @@
         </div>
     </section>
 
-    <!-- AKTUELLE ANGEBOTE -->
-    <section class="py-16 md:py-24 bg-gray-100 dark:bg-[#050505] border-t border-gray-200 dark:border-white/5" id="angebote">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-12 gap-6">
-                <div>
-                    <span class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 md:mb-3 block">Fahrzeugbestand</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Aktuelle Highlights</h2>
-                </div>
-                <div class="flex flex-wrap gap-3 md:gap-4">
-                    <span class="bg-white dark:bg-[#111] border border-brand-gold/50 text-brand-gold px-3 py-1.5 md:px-4 md:py-2 rounded-sm text-xs md:text-sm font-medium flex items-center shadow-sm dark:shadow-[0_0_10px_rgba(212,175,55,0.1)]">
-                        <i class="fas fa-star mr-2"></i> Neuzugänge
-                    </span>
-                    <span class="bg-white dark:bg-[#111] border border-red-500/50 text-red-500 dark:text-red-400 px-3 py-1.5 md:px-4 md:py-2 rounded-sm text-xs md:text-sm font-medium flex items-center shadow-sm dark:shadow-[0_0_10px_rgba(239,68,68,0.1)]">
-                        <i class="fas fa-arrow-trend-down mr-2"></i> Reduzierte Preise
-                    </span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                
-                <!-- Fahrzeug 1 -->
-                <div class="bg-white dark:bg-brand-gray border border-gray-200 dark:border-white/5 rounded-sm overflow-hidden group flex flex-col relative shadow-md dark:shadow-none">
-                    <div class="absolute top-4 left-4 z-20 bg-black/80 backdrop-blur text-brand-gold text-[0.65rem] md:text-xs font-bold px-3 py-1 uppercase tracking-widest border border-brand-gold/50 rounded-sm shadow-md">
-                        Neuzugang
-                    </div>
-                    <div class="h-48 md:h-56 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=800&auto=format&fit=crop" alt="Mercedes-Benz AMG GT" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-white dark:from-brand-gray to-transparent"></div>
-                    </div>
-                    <div class="p-5 md:p-6 flex-grow flex flex-col relative z-10 bg-white dark:bg-brand-gray">
-                        <h4 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-2">Mercedes-Benz AMG GT</h4>
-                        <p class="text-gray-600 dark:text-gray-400 text-xs md:text-sm mb-4">510 PS • 2021 • 34.000 km</p>
-                        <div class="mt-auto pt-4 border-t border-gray-200 dark:border-white/10 flex justify-between items-center">
-                            <span class="text-lg md:text-xl font-bold text-gray-900 dark:text-white">114.900 €</span>
-                            <a href="#kontakt" class="text-brand-gold hover:text-brand-gold/80 dark:hover:text-white transition-colors text-xs md:text-sm font-semibold uppercase tracking-wider">Anfragen <i class="fas fa-arrow-right ml-1"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fahrzeug 2: Platzhalter für das defekte Porsche-Bild -->
-                <div class="bg-white dark:bg-brand-gray border border-gray-200 dark:border-white/5 rounded-sm overflow-hidden group flex flex-col relative shadow-md dark:shadow-none">
-                    <div class="absolute top-4 left-4 z-20 bg-black/80 backdrop-blur text-red-400 text-[0.65rem] md:text-xs font-bold px-3 py-1 uppercase tracking-widest border border-red-500/50 rounded-sm shadow-md">
-                        Preis reduziert
-                    </div>
-                    <div class="h-48 md:h-56 overflow-hidden relative bg-gray-200 dark:bg-[#111]">
-                        <!-- Getauscht zu verlässlichem Placeholder für das fehlerhafte Bild -->
-                        <img src="https://placehold.co/800x600/171717/d4af37?text=Fahrzeug+in+Vorbereitung" alt="Porsche 911 (Bild folgt)" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-white dark:from-brand-gray to-transparent"></div>
-                    </div>
-                    <div class="p-5 md:p-6 flex-grow flex flex-col relative z-10 bg-white dark:bg-brand-gray">
-                        <h4 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-2">Porsche 911 Carrera S</h4>
-                        <p class="text-gray-600 dark:text-gray-400 text-xs md:text-sm mb-4">450 PS • 2020 • 28.500 km</p>
-                        <div class="mt-auto pt-4 border-t border-gray-200 dark:border-white/10 flex justify-between items-center">
-                            <div class="flex flex-col">
-                                <span class="text-gray-500 line-through text-[10px] md:text-xs">132.500 €</span>
-                                <span class="text-lg md:text-xl font-bold text-red-500 dark:text-red-400">128.900 €</span>
-                            </div>
-                            <a href="#kontakt" class="text-brand-gold hover:text-brand-gold/80 dark:hover:text-white transition-colors text-xs md:text-sm font-semibold uppercase tracking-wider">Anfragen <i class="fas fa-arrow-right ml-1"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fahrzeug 3 -->
-                <div class="bg-white dark:bg-brand-gray border border-gray-200 dark:border-white/5 rounded-sm overflow-hidden group flex flex-col relative shadow-md dark:shadow-none">
-                    <div class="absolute top-4 left-4 z-20 bg-black/80 backdrop-blur text-brand-gold text-[0.65rem] md:text-xs font-bold px-3 py-1 uppercase tracking-widest border border-brand-gold/50 rounded-sm shadow-md">
-                        Neuzugang
-                    </div>
-                    <div class="h-48 md:h-56 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=800&auto=format&fit=crop" alt="BMW M4 Competition" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-white dark:from-brand-gray to-transparent"></div>
-                    </div>
-                    <div class="p-5 md:p-6 flex-grow flex flex-col relative z-10 bg-white dark:bg-brand-gray">
-                        <h4 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-2">BMW M4 Competition</h4>
-                        <p class="text-gray-600 dark:text-gray-400 text-xs md:text-sm mb-4">510 PS • 2022 • 15.200 km</p>
-                        <div class="mt-auto pt-4 border-t border-gray-200 dark:border-white/10 flex justify-between items-center">
-                            <span class="text-lg md:text-xl font-bold text-gray-900 dark:text-white">89.900 €</span>
-                            <a href="#kontakt" class="text-brand-gold hover:text-brand-gold/80 dark:hover:text-white transition-colors text-xs md:text-sm font-semibold uppercase tracking-wider">Anfragen <i class="fas fa-arrow-right ml-1"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            
-            <div class="mt-10 md:mt-12 text-center">
-                <a href="#kontakt" class="inline-block border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white dark:hover:text-black transition-all px-6 md:px-8 py-3 rounded-sm text-xs md:text-sm font-bold uppercase tracking-widest w-full sm:w-auto">
-                    Gesamten Bestand anfragen
+    <!-- WUNSCHFAHRZEUG (Car Hunting - Ersetzt Aktuelle Angebote) -->
+    <section class="py-20 md:py-32 bg-[#050505] relative overflow-hidden border-t border-gray-200 dark:border-white/5" id="wunschfahrzeug">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=2070&auto=format&fit=crop" alt="Premium Fahrzeugkollektion" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-20 dark:opacity-40 transition-all duration-1000">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-50 via-gray-50/95 dark:from-[#050505] dark:via-[#050505]/90 to-transparent"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-2xl">
+                <span class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-3 block drop-shadow-md">Car Hunting Service</span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-4 uppercase tracking-wide leading-tight drop-shadow-lg">
+                    Wir finden dein <br><span class="text-brand-gold">Wunschfahrzeug!</span>
+                </h2>
+                <p class="text-xl md:text-2xl text-gray-700 dark:text-gray-300 font-light mb-8 drop-shadow-md">
+                    Exklusiver Zugang zu <span class="text-brand-gold font-medium">internationalen Fahrzeugkollektionen</span>.
+                </p>
+                <div class="h-1 w-20 bg-brand-gold rounded mb-8"></div>
+                <p class="text-gray-600 dark:text-gray-400 mb-10 leading-relaxed max-w-xl text-sm md:text-base">
+                    Sparen Sie sich die mühsame und zeitaufwendige Suche. Nennen Sie uns Ihre genauen Vorstellungen – von Marke und Modell bis hin zur Wunschausstattung. Unser weitreichendes Netzwerk ermöglicht es uns, Fahrzeuge für Sie aufzuspüren, die oft gar nicht erst auf dem freien Markt inseriert werden.
+                </p>
+                <a href="#kontakt" class="btn-gold text-white px-8 py-4 rounded-sm text-sm font-bold uppercase tracking-widest inline-flex items-center transition-all group">
+                    Suchauftrag erteilen <i class="fas fa-search ml-3 group-hover:scale-110 transition-transform"></i>
                 </a>
             </div>
         </div>
@@ -391,7 +363,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
                 <div class="relative px-4 sm:px-0">
                     <div class="absolute -inset-2 md:-inset-4 border-2 border-brand-gold/50 dark:border-brand-gold/30 rounded-sm translate-x-3 translate-y-3 md:translate-x-4 md:translate-y-4"></div>
-                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1283&auto=format&fit=crop" alt="Qualitätskontrolle" loading="lazy" decoding="async" class="relative z-10 w-full h-auto object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700 shadow-xl dark:shadow-none">
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1283&auto=format&fit=crop" alt="Qualitätskontrolle" loading="lazy" decoding="async" class="relative z-10 w-full h-auto object-cover rounded-sm transition-all duration-700 shadow-xl dark:shadow-none">
                 </div>
                 
                 <div>
@@ -507,7 +479,7 @@
                             </div>
                             <div>
                                 <p class="text-xs md:text-sm text-gray-500">Rufen Sie uns an</p>
-                                <a href="tel:+4915221649835" class="text-gray-900 dark:text-white text-sm md:text-base font-semibold hover:text-brand-gold dark:hover:text-brand-gold transition-colors break-all">+49 (0) 152 216 498 35</a>
+                                <a href="tel:+4915168586425" class="text-gray-900 dark:text-white text-sm md:text-base font-semibold hover:text-brand-gold dark:hover:text-brand-gold transition-colors break-all">+49 1516 8586425</a>
                             </div>
                         </div>
                         <div class="flex items-center">
@@ -516,16 +488,21 @@
                             </div>
                             <div>
                                 <p class="text-xs md:text-sm text-gray-500">Schreiben Sie uns</p>
-                                <a href="mailto:info@wir-beschaffen-dein-auto.de" class="text-gray-900 dark:text-white text-sm md:text-base font-semibold hover:text-brand-gold dark:hover:text-brand-gold transition-colors break-all">info@wir-beschaffen-dein-auto.de</a>
+                                <a href="mailto:westdeutschefahrzeugvermittlung@gmail.com" class="text-gray-900 dark:text-white text-sm md:text-base font-semibold hover:text-brand-gold dark:hover:text-brand-gold transition-colors break-all">westdeutschefahrzeugvermittlung@gmail.com</a>
                             </div>
                         </div>
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 md:w-12 md:h-12 bg-white dark:bg-[#050505] shadow-sm dark:shadow-none rounded border border-gray-200 dark:border-white/10 flex items-center justify-center mr-4 flex-shrink-0">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-white dark:bg-[#050505] shadow-sm dark:shadow-none rounded border border-gray-200 dark:border-white/10 flex items-center justify-center mr-4 flex-shrink-0 mt-1">
                                 <i class="fas fa-map-marker-alt text-brand-gold"></i>
                             </div>
                             <div>
-                                <p class="text-xs md:text-sm text-gray-500">Unser Standort</p>
-                                <span class="text-gray-900 dark:text-white text-sm md:text-base font-semibold">Dr. Lehmann Weg 10, 37603 Holzminden</span>
+                                <p class="text-xs md:text-sm text-gray-500 mb-1">Unser Standort</p>
+                                <a href="https://www.google.com/maps/search/55487+Sohren+Diller+weg+23/@49.9007804,7.3239133,15z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="group block text-gray-900 dark:text-white text-sm md:text-base font-semibold hover:text-brand-gold dark:hover:text-brand-gold transition-colors">
+                                    Diller Weg 23<br>55487 Sohren
+                                    <span class="flex items-center gap-1.5 mt-1.5 text-xs text-brand-gold/80 group-hover:text-brand-gold uppercase tracking-wider font-bold">
+                                        <i class="fas fa-directions"></i> In Google Maps öffnen
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -540,38 +517,55 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
                             <div>
                                 <label for="first_name" class="block text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400 mb-1.5 md:mb-2">Vorname *</label>
-                                <input type="text" id="first_name" name="first_name" required class="w-full bg-gray-50 dark:bg-brand-gray border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base text-gray-900 dark:text-white focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors">
+                                <!-- ACCESSIBILITY: autocomplete & focus-visible hinzugefügt -->
+                                <input type="text" id="first_name" name="first_name" autocomplete="given-name" required class="w-full bg-gray-50 dark:bg-brand-gray border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base text-gray-900 dark:text-white focus:outline-none focus-visible:border-brand-gold focus-visible:ring-1 focus-visible:ring-brand-gold transition-colors">
                             </div>
                             <div>
                                 <label for="last_name" class="block text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400 mb-1.5 md:mb-2">Nachname *</label>
-                                <input type="text" id="last_name" name="last_name" required class="w-full bg-gray-50 dark:bg-brand-gray border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base text-gray-900 dark:text-white focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors">
+                                <input type="text" id="last_name" name="last_name" autocomplete="family-name" required class="w-full bg-gray-50 dark:bg-brand-gray border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base text-gray-900 dark:text-white focus:outline-none focus-visible:border-brand-gold focus-visible:ring-1 focus-visible:ring-brand-gold transition-colors">
                             </div>
                         </div>
                         
                         <div>
                             <label for="email" class="block text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400 mb-1.5 md:mb-2">E-Mail *</label>
-                            <input type="email" id="email" name="email" required class="w-full bg-gray-50 dark:bg-brand-gray border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base text-gray-900 dark:text-white focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors">
+                            <input type="email" id="email" name="email" autocomplete="email" required class="w-full bg-gray-50 dark:bg-brand-gray border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base text-gray-900 dark:text-white focus:outline-none focus-visible:border-brand-gold focus-visible:ring-1 focus-visible:ring-brand-gold transition-colors">
                         </div>
                         
                         <div>
                             <label for="message" class="block text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400 mb-1.5 md:mb-2">Ihre Nachricht *</label>
-                            <textarea id="message" name="message" rows="4" required class="w-full bg-gray-50 dark:bg-brand-gray border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base text-gray-900 dark:text-white focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"></textarea>
+                            <textarea id="message" name="message" rows="4" required class="w-full bg-gray-50 dark:bg-brand-gray border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base text-gray-900 dark:text-white focus:outline-none focus-visible:border-brand-gold focus-visible:ring-1 focus-visible:ring-brand-gold transition-colors"></textarea>
                         </div>
                         
                         <div class="flex items-start">
                             <div class="flex items-center h-5">
-                                <input id="gdpr" name="gdpr" type="checkbox" required class="w-4 h-4 bg-gray-50 dark:bg-brand-gray border-gray-300 dark:border-white/10 rounded text-brand-gold focus:ring-brand-gold focus:ring-offset-white dark:focus:ring-offset-[#050505]">
+                                <input id="gdpr" name="gdpr" type="checkbox" required class="w-4 h-4 bg-gray-50 dark:bg-brand-gray border-gray-300 dark:border-white/10 rounded text-brand-gold focus-visible:ring-brand-gold focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#050505]">
                             </div>
                             <div class="ml-3 text-xs md:text-sm">
                                 <label for="gdpr" class="text-gray-600 dark:text-gray-400">Ich bin damit einverstanden, dass diese Website meine eingereichten Informationen speichert, damit sie auf meine Anfrage antworten können.</label>
                             </div>
                         </div>
                         
-                        <button type="submit" class="w-full btn-gold text-white font-bold py-3 md:py-4 rounded-sm uppercase tracking-widest text-xs md:text-sm hover:shadow-lg transition-all mt-2">
+                        <button type="submit" class="w-full btn-gold text-white font-bold py-3 md:py-4 rounded-sm uppercase tracking-widest text-xs md:text-sm hover:shadow-lg transition-all mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#050505]">
                             Nachricht absenden
                         </button>
                     </form>
                 </div>
+            </div>
+
+            <!-- Interaktive Google Maps Einbettung -->
+            <div class="mt-12 md:mt-16 w-full h-80 md:h-96 rounded-sm overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl dark:shadow-none relative z-10 bg-gray-100 dark:bg-[#111]">
+                <!-- Google Maps iFrame -->
+                <iframe 
+                    src="https://maps.google.com/maps?q=Diller%20Weg%2023,%2055487%20Sohren+(Westdeutsche%20Fahrzeugvermittlung)&t=m&z=15&output=embed&iwloc=" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Standort Westdeutsche Fahrzeugvermittlung"
+                    class="w-full h-full object-cover transition-all duration-700 ease-in-out"
+                ></iframe>
             </div>
         </div>
     </section>
@@ -602,13 +596,16 @@
         
         if (mobileMenuBtn && mobileMenu) {
             mobileMenuBtn.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
+                const isHidden = mobileMenu.classList.toggle('hidden');
+                // ACCESSIBILITY: Status des Menüs für Screenreader updaten
+                mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
             });
             
             const mobileLinks = document.querySelectorAll('#mobile-menu a');
             mobileLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
                 });
             });
         }
