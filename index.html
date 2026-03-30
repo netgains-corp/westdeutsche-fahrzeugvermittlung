@@ -15,23 +15,153 @@
     <meta property="og:type" content="website">
     
     <!-- SEO: Local Business Schema (JSON-LD) -->
-    <script type="application/ld+json">
+   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+
     {
-      "@context": "https://schema.org",
-      "@type": "AutoDealer",
-      "name": "Westdeutsche Fahrzeugvermittlung UG (haftungsbeschränkt)",
-      "image": "Westdeutsche.webp",
-      "telephone": "+4915168586425",
-      "email": "westdeutschefahrzeugvermittlung@gmail.com",
+      "@type": "Organization",
+      "@id": "https://westdeutsche-fahrzeugvermittlung.de/#org",
+      "name": "Westdeutsche Fahrzeugvermittlung UG",
+      "url": "https://westdeutsche-fahrzeugvermittlung.de",
+      "logo": "https://westdeutsche-fahrzeugvermittlung.de/Westdeutsche.webp",
+      "sameAs": [
+        "https://www.kleinanzeigen.de/s-bestandsliste.html?userId=160510965"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+4915168586425",
+        "contactType": "customer service"
+      }
+    },
+
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://westdeutsche-fahrzeugvermittlung.de/#local",
+      "name": "Westdeutsche Fahrzeugvermittlung",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Diller Weg 23",
         "postalCode": "55487",
         "addressLocality": "Sohren",
         "addressCountry": "DE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 49.9,
+        "longitude": 7.32
+      },
+      "openingHours": "Mo-Fr 09:00-18:00",
+      "priceRange": "$$",
+      "telephone": "+4915168586425"
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://westdeutsche-fahrzeugvermittlung.de/#website",
+      "url": "https://westdeutsche-fahrzeugvermittlung.de",
+      "name": "Westdeutsche Fahrzeugvermittlung",
+      "publisher": {
+        "@id": "https://westdeutsche-fahrzeugvermittlung.de/#org"
+      }
+    },
+
+    {
+      "@type": "WebPage",
+      "@id": "https://westdeutsche-fahrzeugvermittlung.de/#homepage",
+      "url": "https://westdeutsche-fahrzeugvermittlung.de",
+      "name": "Premium Fahrzeugvermittlung",
+      "isPartOf": {
+        "@id": "https://westdeutsche-fahrzeugvermittlung.de/#website"
+      },
+      "about": {
+        "@id": "https://westdeutsche-fahrzeugvermittlung.de/#service"
+      }
+    },
+
+    {
+      "@type": "Service",
+      "@id": "https://westdeutsche-fahrzeugvermittlung.de/#service",
+      "name": "Fahrzeugvermittlung",
+      "provider": {
+        "@id": "https://westdeutsche-fahrzeugvermittlung.de/#org"
+      },
+      "areaServed": "Deutschland",
+      "serviceType": [
+        "Car Hunting",
+        "Auto Ankauf",
+        "Auto Verkauf"
+      ]
+    },
+
+    {
+      "@type": "Offer",
+      "@id": "https://westdeutsche-fahrzeugvermittlung.de/#offer1",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Car Hunting Service"
+      }
+    },
+
+    {
+      "@type": "Offer",
+      "@id": "https://westdeutsche-fahrzeugvermittlung.de/#offer2",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Gebrauchtwagen Vermittlung"
+      }
+    },
+
+    {
+      "@type": "FAQPage",
+      "@id": "https://westdeutsche-fahrzeugvermittlung.de/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Wie lange dauert die Vermittlung?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In der Regel wenige Tage bis Wochen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was kostet die Vermittlung?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Abhängig vom Fahrzeugwert und Aufwand."
+          }
+        }
+      ]
+    },
+
+    {
+      "@type": "Review",
+      "@id": "https://westdeutsche-fahrzeugvermittlung.de/#review1",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Michael T."
+      }
+    },
+
+    {
+      "@type": "Product",
+      "@id": "https://westdeutsche-fahrzeugvermittlung.de/#product1",
+      "name": "BMW M4 Vermittlung",
+      "brand": {
+        "@type": "Brand",
+        "name": "BMW"
       }
     }
-    </script>
+
+  ]
+}
+</script>
 
     <!-- PERFORMANCE: Preconnects für externe Ressourcen -->
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
