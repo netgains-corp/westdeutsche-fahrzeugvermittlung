@@ -33,19 +33,29 @@
     }
     </script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- PERFORMANCE: Preconnects -->
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- PERFORMANCE: LCP Image Preload -->
     <link rel="preload" as="image" href="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=60&w=1200&auto=format&fit=crop" fetchpriority="high">
     
+    <!-- HINWEIS AN DEN ENTWICKLER: 
+         Für die Live-Produktion auf GitHub das CDN (<script src...>) entfernen 
+         und durch die generierte statische CSS-Datei ersetzen:
+         <link rel="stylesheet" href="style.css"> 
+    -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- FontAwesome (Asynchron geladen um Render-Blocking zu verhindern) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
     <!-- Tailwind Configuration -->
     <script>
@@ -77,10 +87,10 @@
 
     <!-- Anti-FOUC Script -->
     <script>
-        if (localStorage.getItem('color-theme') === 'light') {
-            document.documentElement.classList.remove('dark');
-        } else {
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
         }
     </script>
 
@@ -112,117 +122,112 @@
             transform: translateY(-2px);
         }
 
-        details > summary {
-            list-style: none;
-        }
-        details > summary::-webkit-details-marker {
-            display: none;
-        }
-        details[open] summary ~ * {
-            animation: sweep .4s ease-in-out;
-        }
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary ~ * { animation: sweep .4s ease-in-out; }
         @keyframes sweep {
-            0%    {opacity: 0; transform: translateY(-10px)}
-            100%  {opacity: 1; transform: translateY(0)}
+            0% {opacity: 0; transform: translateY(-10px)}
+            100% {opacity: 1; transform: translateY(0)}
         }
     </style>
 </head>
-<body id="top" class="bg-[#050505] text-[#e5e5e5] selection:bg-brand-gold selection:text-white">
+<body id="top" class="bg-gray-50 text-gray-900 dark:bg-[#050505] dark:text-[#e5e5e5] selection:bg-brand-gold selection:text-white">
 
     <!-- STICKY WHATSAPP BUTTON -->
     <a href="https://wa.me/4915168586425" target="_blank" rel="noopener noreferrer" 
        class="fixed bottom-6 right-6 z-[60] bg-[#25D366] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-[0_10px_25px_rgba(37,211,102,0.4)] hover:shadow-[0_15px_35px_rgba(37,211,102,0.6)] transition-all duration-300 transform hover:scale-110 active:scale-95 group"
        aria-label="Kontakt via WhatsApp">
         <i class="fab fa-whatsapp text-3xl md:text-4xl group-hover:rotate-12 transition-transform"></i>
-        <span data-i18n="wa_tooltip" class="absolute right-full mr-4 bg-brand-gray text-white px-3 py-1.5 rounded-lg text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity shadow-xl pointer-events-none whitespace-nowrap border border-white/10">
+        <span data-i18n="wa_tooltip" class="absolute right-full mr-4 bg-white dark:bg-brand-gray text-gray-900 dark:text-white px-3 py-1.5 rounded-lg text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity shadow-xl pointer-events-none whitespace-nowrap border border-gray-200 dark:border-white/10">
             Jetzt schreiben!
         </span>
     </a>
 
     <!-- HEADER / NAVIGATION -->
-    <header class="fixed w-full top-0 z-50 bg-black/90 backdrop-blur-md border-b border-white/10 transition-all duration-300">
+    <header class="fixed w-full top-0 z-50 bg-white/90 dark:bg-black/90 backdrop-blur-md border-b border-gray-200 dark:border-white/10 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20 lg:h-24">
                 
-                <!-- Logo & Title Area -->
-                <div class="flex items-center gap-3 min-w-0 flex-1">
-                    <a href="#top" aria-label="Zur Startseite" class="flex items-center gap-2 sm:gap-4 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm overflow-hidden min-w-0">
-                        <img src="Westdeutsche.webp" alt="Westdeutsche Fahrzeugvermittlung" width="80" height="80" class="h-10 sm:h-12 lg:h-14 xl:h-16 w-auto object-contain flex-shrink-0 drop-shadow-xl group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/171717/d4af37?text=Adler'">
-                        <div class="flex flex-col min-w-0">
-                            <span class="text-white font-bold text-base sm:text-lg lg:text-xl xl:text-2xl tracking-[0.12em] leading-none truncate uppercase font-sans">Westdeutsche</span>
-                            <span data-i18n="nav_logo_sub" class="text-brand-gold text-[0.55rem] sm:text-[0.6rem] lg:text-[0.65rem] xl:text-xs tracking-[0.2em] font-medium mt-1 truncate uppercase">Fahrzeugvermittlung</span>
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#top" aria-label="Zur Startseite" class="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm">
+                        <!-- CLS Optimierung: width/height ergänzt -->
+                        <img src="Westdeutsche.webp" alt="Westdeutsche Fahrzeugvermittlung" width="80" height="80" class="h-10 sm:h-12 lg:h-16 xl:h-20 w-auto object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/171717/d4af37?text=Adler'">
+                        <div class="flex flex-col hidden sm:flex">
+                            <span class="text-gray-900 dark:text-white font-bold text-sm sm:text-base lg:text-xl xl:text-2xl tracking-[0.15em] leading-none uppercase">WESTDEUTSCHE</span>
+                            <span data-i18n="nav_logo_sub" class="text-brand-gold text-[0.5rem] sm:text-[0.60rem] xl:text-xs tracking-[0.25em] font-medium mt-1 uppercase">FAHRZEUGVERMITTLUNG</span>
                         </div>
                     </a>
                 </div>
-
-                <!-- Right Side Actions -->
-                <div class="flex items-center gap-3 sm:gap-6 flex-shrink-0">
-                    <!-- Kontakt Button -->
-                    <a href="#kontakt" data-i18n="nav_kontakt" class="btn-gold text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-sm text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-wider shadow-lg whitespace-nowrap">Kontakt</a>
+                
+                <!-- Desktop Menu -->
+                <nav class="hidden lg:flex items-center gap-4 xl:gap-6">
+                    <a href="#wunschfahrzeug" data-i18n="nav_wunschfahrzeug" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-xs xl:text-sm font-medium uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm px-1 whitespace-nowrap">Wunschfahrzeug</a>
+                    <a href="#leistungen" data-i18n="nav_leistungen" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-xs xl:text-sm font-medium uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm px-1 whitespace-nowrap">Leistungen</a>
+                    <a href="#qualitaet" data-i18n="nav_qualitaet" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-xs xl:text-sm font-medium uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm px-1 whitespace-nowrap">Qualität</a>
+                    <a href="#bewertungen" data-i18n="nav_bewertungen" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold dark:hover:text-brand-gold transition-colors text-xs xl:text-sm font-medium uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm px-1 whitespace-nowrap">Bewertungen</a>
                     
-                    <!-- Unified Menu Button -->
-                    <button id="menu-toggle-btn" aria-label="Menü öffnen" class="text-gray-300 hover:text-brand-gold focus:outline-none p-2 transition-colors border border-white/10 rounded-sm">
+                    <!-- Language Switcher (Desktop) -->
+                    <div class="relative group flex-shrink-0">
+                        <button class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-lg p-2.5 transition-colors flex items-center gap-1.5" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-globe text-sm"></i>
+                            <span id="current-lang-desktop" class="text-xs font-bold uppercase tracking-wider">DE</span>
+                            <i class="fas fa-chevron-down text-[8px] ml-0.5 opacity-70 group-hover:rotate-180 transition-transform"></i>
+                        </button>
+                        <div class="absolute right-0 mt-1 w-36 bg-white dark:bg-[#111] border border-gray-200 dark:border-white/10 rounded-sm shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
+                            <button onclick="switchLanguage('de')" class="w-full text-left block px-4 py-3 text-xs font-bold text-brand-gold bg-gray-50 dark:bg-black/50 border-l-2 border-brand-gold lang-btn-de">DE - Deutsch</button>
+                            <button onclick="switchLanguage('en')" class="w-full text-left block px-4 py-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-brand-gold transition-colors lang-btn-en">EN - English</button>
+                            <button onclick="switchLanguage('ru')" class="w-full text-left block px-4 py-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-brand-gold transition-colors lang-btn-ru">RU - Русский</button>
+                        </div>
+                    </div>
+
+                    <!-- Theme Toggle Button -->
+                    <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-lg text-sm p-2.5 transition-colors flex-shrink-0" aria-label="Dark Mode umschalten">
+                        <i id="theme-toggle-dark-icon" class="fas fa-moon hidden text-lg"></i>
+                        <i id="theme-toggle-light-icon" class="fas fa-sun hidden text-lg"></i>
+                    </button>
+
+                    <!-- Kontakt Button -->
+                    <a href="#kontakt" data-i18n="nav_kontakt" class="btn-gold text-white px-5 py-2.5 rounded-sm text-xs xl:text-sm font-bold uppercase tracking-wider shadow-lg whitespace-nowrap flex-shrink-0">Kontakt</a>
+                </nav>
+
+                <!-- Mobile Header Elements -->
+                <div class="flex lg:hidden items-center gap-2 sm:gap-3 flex-shrink-0">
+                    <a href="#kontakt" data-i18n="nav_kontakt" class="btn-gold text-white px-3 py-2 sm:px-4 sm:py-2 rounded-sm text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-lg whitespace-nowrap flex-shrink-0">Kontakt</a>
+                    <button id="mobile-menu-btn" aria-label="Menü umschalten" aria-expanded="false" aria-controls="mobile-menu" class="text-gray-600 dark:text-gray-300 hover:text-brand-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm p-2 ml-1 flex-shrink-0">
                         <i class="fas fa-bars text-xl sm:text-2xl"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- FULL-WIDTH DRAWER MENU -->
-        <div id="main-menu" class="hidden fixed inset-x-0 top-20 lg:top-24 bg-black/98 backdrop-blur-2xl border-b border-white/10 shadow-2xl flex flex-col max-h-[calc(100vh-5rem)] overflow-y-auto z-40 transition-all duration-300 origin-top">
-            <div class="max-w-7xl mx-auto w-full px-6 py-10 lg:py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
-                
-                <!-- Navigation Links -->
-                <nav class="flex flex-col space-y-6 lg:space-y-8">
-                    <span class="text-brand-gold text-[10px] font-bold uppercase tracking-widest border-b border-brand-gold/20 pb-2">Navigation</span>
-                    <a href="#wunschfahrzeug" data-i18n="nav_wunschfahrzeug" class="text-white hover:text-brand-gold transition-all text-xl lg:text-3xl font-light uppercase tracking-wide flex items-center gap-4 group">
-                        <span class="text-xs text-brand-gold opacity-40 group-hover:opacity-100 transition-opacity">01</span> Wunschfahrzeug
-                    </a>
-                    <a href="#leistungen" data-i18n="nav_leistungen" class="text-white hover:text-brand-gold transition-all text-xl lg:text-3xl font-light uppercase tracking-wide flex items-center gap-4 group">
-                        <span class="text-xs text-brand-gold opacity-40 group-hover:opacity-100 transition-opacity">02</span> Leistungen
-                    </a>
-                    <a href="#qualitaet" data-i18n="nav_qualitaet" class="text-white hover:text-brand-gold transition-all text-xl lg:text-3xl font-light uppercase tracking-wide flex items-center gap-4 group">
-                        <span class="text-xs text-brand-gold opacity-40 group-hover:opacity-100 transition-opacity">03</span> Qualität
-                    </a>
-                    <a href="#bewertungen" data-i18n="nav_bewertungen" class="text-white hover:text-brand-gold transition-all text-xl lg:text-3xl font-light uppercase tracking-wide flex items-center gap-4 group">
-                        <span class="text-xs text-brand-gold opacity-40 group-hover:opacity-100 transition-opacity">04</span> Bewertungen
-                    </a>
-                    <a href="#faq" data-i18n="nav_faq" class="text-white hover:text-brand-gold transition-all text-xl lg:text-3xl font-light uppercase tracking-wide flex items-center gap-4 group">
-                        <span class="text-xs text-brand-gold opacity-40 group-hover:opacity-100 transition-opacity">05</span> FAQ
-                    </a>
-                </nav>
-
-                <!-- Settings & Language -->
-                <div class="flex flex-col space-y-10">
-                    <!-- Language Selection -->
-                    <div class="space-y-4">
-                        <span class="text-brand-gold text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
-                            <i class="fas fa-globe text-[10px]"></i> <span data-i18n="nav_lang_label">Sprache wählen</span>
-                        </span>
-                        <div class="grid grid-cols-3 gap-3">
-                            <button id="menu-lang-de" onclick="switchLanguage('de')" class="py-3 bg-brand-gold/10 text-brand-gold border border-brand-gold/30 rounded-sm text-xs font-bold transition-all hover:bg-brand-gold/20">DEUTSCH</button>
-                            <button id="menu-lang-en" onclick="switchLanguage('en')" class="py-3 border border-white/10 text-gray-400 rounded-sm text-xs font-medium transition-all hover:border-brand-gold/50">ENGLISH</button>
-                            <button id="menu-lang-ru" onclick="switchLanguage('ru')" class="py-3 border border-white/10 text-gray-400 rounded-sm text-xs font-medium transition-all hover:border-brand-gold/50">РУССКИЙ</button>
-                        </div>
-                    </div>
-
-                    <!-- Appearance -->
-                    <div class="space-y-4">
-                        <span data-i18n="nav_theme_label" class="text-brand-gold text-[10px] font-bold uppercase tracking-widest">Erscheinungsbild</span>
-                        <button id="theme-toggle-menu" type="button" class="flex items-center justify-between w-full text-gray-300 hover:text-brand-gold bg-white/5 border border-white/10 px-6 py-4 rounded-sm transition-all group">
-                            <div class="flex items-center gap-3">
-                                <i id="menu-theme-icon" class="fas fa-moon"></i>
-                                <span id="theme-text-menu" data-i18n="theme_btn_text" class="text-sm font-bold uppercase tracking-wider">Dark Mode umschalten</span>
-                            </div>
-                            <i class="fas fa-sync-alt text-xs opacity-40 group-hover:rotate-180 transition-transform"></i>
-                        </button>
-                    </div>
-
-                    <!-- Quick Info -->
-                    <div class="pt-8 border-t border-white/10 text-gray-500 text-[10px] uppercase tracking-[0.2em] space-y-2">
-                        <p>Westdeutsche Fahrzeugvermittlung UG</p>
-                        <p>Diller Weg 23 · 55487 Sohren</p>
-                        <p>+49 1516 8586425</p>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl border-b border-gray-200 dark:border-white/10 absolute w-full shadow-2xl origin-top transition-all flex flex-col max-h-[85vh] overflow-y-auto">
+            <nav class="flex flex-col px-6 pt-6 pb-6 space-y-6">
+                <a href="#wunschfahrzeug" data-i18n="nav_wunschfahrzeug" class="text-gray-800 dark:text-gray-300 hover:text-brand-gold transition-colors text-sm font-bold uppercase tracking-wider block border-b border-gray-200 dark:border-white/5 pb-3">Wunschfahrzeug</a>
+                <a href="#leistungen" data-i18n="nav_leistungen" class="text-gray-800 dark:text-gray-300 hover:text-brand-gold transition-colors text-sm font-bold uppercase tracking-wider block border-b border-gray-200 dark:border-white/5 pb-3">Leistungen</a>
+                <a href="#qualitaet" data-i18n="nav_qualitaet" class="text-gray-800 dark:text-gray-300 hover:text-brand-gold transition-colors text-sm font-bold uppercase tracking-wider block border-b border-gray-200 dark:border-white/5 pb-3">Qualität</a>
+                <a href="#bewertungen" data-i18n="nav_bewertungen" class="text-gray-800 dark:text-gray-300 hover:text-brand-gold transition-colors text-sm font-bold uppercase tracking-wider block border-b border-gray-200 dark:border-white/5 pb-3">Bewertungen</a>
+                <a href="#faq" data-i18n="nav_faq" class="text-gray-800 dark:text-gray-300 hover:text-brand-gold transition-colors text-sm font-bold uppercase tracking-wider block pb-3">FAQ</a>
+            </nav>
+            
+            <div class="px-6 pb-8 pt-4 bg-gray-50 dark:bg-[#111] mt-auto border-t border-gray-200 dark:border-white/5 flex flex-col gap-6">
+                <div>
+                    <span data-i18n="nav_theme_label" class="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-3 block">Erscheinungsbild</span>
+                    <button id="theme-toggle-mobile" type="button" class="flex items-center gap-3 text-gray-600 dark:text-gray-300 hover:text-brand-gold bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/10 px-4 py-2 rounded-sm text-xs font-bold transition-colors w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold">
+                        <i id="theme-toggle-dark-icon-mobile" class="fas fa-moon hidden text-sm"></i>
+                        <i id="theme-toggle-light-icon-mobile" class="fas fa-sun hidden text-sm"></i>
+                        <span id="theme-text-mobile" data-i18n="theme_btn_text">Dark Mode umschalten</span>
+                    </button>
+                </div>
+                <div>
+                    <span data-i18n="nav_lang_label" class="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-3 flex items-center gap-2">
+                        <i class="fas fa-globe"></i> Sprache / Language
+                    </span>
+                    <div class="flex gap-3">
+                        <button onclick="switchLanguage('de')" class="flex-1 py-2 bg-brand-gold/10 text-brand-gold border border-brand-gold/30 rounded-sm text-xs font-bold transition-colors mob-lang-de">DE</button>
+                        <button onclick="switchLanguage('en')" class="flex-1 py-2 border border-gray-300 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-brand-gold hover:border-brand-gold/50 rounded-sm text-xs font-medium transition-colors mob-lang-en">EN</button>
+                        <button onclick="switchLanguage('ru')" class="flex-1 py-2 border border-gray-300 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-brand-gold hover:border-brand-gold/50 rounded-sm text-xs font-medium transition-colors mob-lang-ru">RU</button>
                     </div>
                 </div>
             </div>
@@ -239,243 +244,454 @@
             <p data-i18n="hero_subtitle" class="text-base sm:text-lg md:text-xl text-gray-300 mb-10 md:mb-12 max-w-2xl mx-auto font-light leading-relaxed px-2">
                 Profitieren Sie von einem <span class="text-brand-gold font-semibold">bestmöglichen Verkaufspreis</span> bei <span class="text-white font-semibold border-b border-brand-gold pb-1">minimalem</span> Eigenaufwand.
             </p>
-
             <div class="flex flex-col items-center gap-4">
-                <a href="#kontakt" data-i18n="hero_btn" class="btn-gold text-white px-8 py-4 rounded-sm text-sm md:text-base font-bold tracking-widest uppercase inline-flex flex-col items-center w-full sm:w-auto text-center">
+                <a href="#kontakt" data-i18n="hero_btn" class="btn-gold text-white px-6 sm:px-8 py-4 rounded-sm text-sm md:text-base font-bold tracking-widest uppercase inline-flex flex-col items-center w-full sm:w-auto text-center">
                     Kontaktieren Sie mich
                     <span class="text-xs font-normal opacity-90 mt-1 tracking-normal block">für eine unverbindliche</span>
                 </a>
-                <div class="flex items-center gap-2 sm:gap-3 relative -mt-3 md:-mt-4 pointer-events-none">
-                    <span data-i18n="hero_besprechung" class="font-cursive text-3xl sm:text-4xl md:text-6xl text-brand-gold -rotate-2 drop-shadow-lg">Besprechung!</span>
+                <div class="flex items-center gap-2 sm:gap-3 relative -mt-3 md:-mt-4">
+                    <span data-i18n="hero_besprechung" class="font-cursive text-3xl sm:text-4xl md:text-6xl text-brand-gold -rotate-2 drop-shadow-lg shadow-black">Besprechung!</span>
                     <svg class="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 text-brand-gold -mb-6 md:-mb-8 rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path></svg>
                 </div>
             </div>
-
+            
+            <!-- Kleinanzeigen Button: Optimiert mit No-Referrer & Graceful Degradation -->
             <div class="mt-12 md:mt-16">
                 <a href="https://www.kleinanzeigen.de/s-bestandsliste.html?userId=160510965" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#86b817] hover:bg-[#729e12] text-white transition-all duration-300 px-6 py-3 rounded-sm text-xs sm:text-sm font-bold tracking-wide shadow-lg transform hover:-translate-y-0.5 w-full sm:w-auto">
-                    <span data-i18n="hero_kleinanzeigen">Unsere Angebote direkt auf</span> <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Kleinanzeigen_logo.svg" alt="Kleinanzeigen" class="h-4 sm:h-5 ml-1 brightness-0 invert">
+                    <span data-i18n="hero_kleinanzeigen">Unsere Angebote direkt auf</span> 
+                    
+                    <!-- Das Logo mit Referrer-Schutz und JavaScript-Fallback -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Kleinanzeigen_logo.svg" 
+                         alt="Kleinanzeigen" 
+                         class="h-4 sm:h-5 ml-1 brightness-0 invert" 
+                         referrerpolicy="no-referrer"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                    
+                    <!-- Unsichtbarer Text, der nur auftaucht, falls das Bild ausfällt -->
+                    <span style="display:none;" class="font-bold text-base tracking-tight ml-1">Kleinanzeigen</span>
+                    
                     <i class="fas fa-external-link-alt ml-1 text-[10px] opacity-80 hidden sm:inline"></i>
                 </a>
             </div>
         </div>
-        <div class="absolute bottom-0 w-full h-24 md:h-32 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none"></div>
+        <div class="absolute bottom-0 w-full h-24 md:h-32 bg-gradient-to-t from-gray-50 dark:from-[#050505] to-transparent pointer-events-none"></div>
     </section>
 
-    <!-- KONTAKT SECTION (Moved under Hero) -->
-    <section class="py-16 md:py-24 bg-brand-gray border-t border-white/5 relative scroll-mt-24 lg:scroll-mt-32" id="kontakt">
-        <div class="absolute top-0 right-0 w-full md:w-1/2 h-full bg-brand-gold/5 blur-3xl pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                <div>
-                    <span data-i18n="cont_tag" class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-3 block">Direkter Draht</span>
-                    <h2 data-i18n="cont_title" class="text-3xl md:text-5xl font-bold text-white mb-6">Kontaktieren Sie uns</h2>
-                    <p data-i18n="cont_desc" class="text-gray-400 mb-8 text-sm md:text-base leading-relaxed">
-                        Sie suchen ein neues Auto, einen Anhänger oder ein Motorrad? Lassen Sie sich von unseren Experten beraten.
+    <!-- ABOUT & FEATURES -->
+    <section class="py-16 md:py-24 bg-gray-50 dark:bg-[#050505]" id="about">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16">
+                <div class="lg:col-span-5 flex flex-col justify-center">
+                    <span data-i18n="about_tag" class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-3">Das sind wir</span>
+                    <h2 data-i18n="about_title" class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Ihr Experte für Fahrzeugvermittlung</h2>
+                    <p data-i18n="about_p1" class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 text-sm sm:text-base">
+                        Als dynamisches und fokussiertes Team kombinieren wir tiefe Branchenkenntnis mit modernsten, datengestützten Analyseverfahren. Anstatt uns auf veralteten Standards auszuruhen, nutzen wir innovative Vermarktungsstrategien und unser weitreichendes Netzwerk, um das perfekte Fahrzeug für Sie zu finden oder Ihren Gebrauchten zum Bestpreis zu vermitteln.
                     </p>
-                    <div class="space-y-6">
+                    <p data-i18n="about_p2" class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm sm:text-base">
+                        Egal ob Neuwagen, Jahreswagen, Gebrauchtwagen, Anhänger oder Motorräder – wir sind Ihr verlässlicher, agiler Partner.
+                    </p>
+                </div>
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+                    <div class="bg-white dark:bg-brand-gray p-6 md:p-8 rounded-sm border border-gray-200 dark:border-white/5 hover:border-brand-gold/50 dark:hover:border-brand-gold/30 transition-colors group shadow-sm dark:shadow-none">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded bg-brand-gold/10 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-chart-line text-xl md:text-2xl text-brand-gold"></i>
+                        </div>
+                        <h3 data-i18n="feat1_title" class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-2 md:mb-3">Marktexpertise & Dynamik</h3>
+                        <p data-i18n="feat1_desc" class="text-gray-600 dark:text-gray-400 text-xs md:text-sm leading-relaxed">Mit einem fundierten Verständnis für den aktuellen Automobilmarkt und präzisen Analysemethoden sichern wir Ihnen eine optimale Beratung. Transparent und stets am Puls der Zeit.</p>
+                    </div>
+                    <div class="bg-white dark:bg-brand-gray p-6 md:p-8 rounded-sm border border-gray-200 dark:border-white/5 hover:border-brand-gold/50 dark:hover:border-brand-gold/30 transition-colors group shadow-sm dark:shadow-none">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded bg-brand-gold/10 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-users text-xl md:text-2xl text-brand-gold"></i>
+                        </div>
+                        <h3 data-i18n="feat2_title" class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-2 md:mb-3">Individuelle Beratung</h3>
+                        <p data-i18n="feat2_desc" class="text-gray-600 dark:text-gray-400 text-xs md:text-sm leading-relaxed">Jeder Kunde hat individuelle Bedürfnisse und Anforderungen. Wir nehmen uns die Zeit, diese zu verstehen und das passende Fahrzeug für Sie zu finden.</p>
+                    </div>
+                    <div class="bg-white dark:bg-brand-gray p-6 md:p-8 rounded-sm border border-gray-200 dark:border-white/5 hover:border-brand-gold/50 dark:hover:border-brand-gold/30 transition-colors group shadow-sm dark:shadow-none">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded bg-brand-gold/10 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-handshake text-xl md:text-2xl text-brand-gold"></i>
+                        </div>
+                        <h3 data-i18n="feat3_title" class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-2 md:mb-3">Rundum-Service</h3>
+                        <p data-i18n="feat3_desc" class="text-gray-600 dark:text-gray-400 text-xs md:text-sm leading-relaxed">Von der Beratung über die Vermittlung bis hin zur Kaufabwicklung – wir bieten Ihnen einen umfassenden Service aus einer Hand. Einfach und stressfrei.</p>
+                    </div>
+                    <div class="bg-white dark:bg-brand-gray p-6 md:p-8 rounded-sm border border-gray-200 dark:border-white/5 hover:border-brand-gold/50 dark:hover:border-brand-gold/30 transition-colors group shadow-sm dark:shadow-none">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded bg-brand-gold/10 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-shield-alt text-xl md:text-2xl text-brand-gold"></i>
+                        </div>
+                        <h3 data-i18n="feat4_title" class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-2 md:mb-3">Vertrauen & Zuverlässigkeit</h3>
+                        <p data-i18n="feat4_desc" class="text-gray-600 dark:text-gray-400 text-xs md:text-sm leading-relaxed">Bei uns stehen Vertrauen und Zuverlässigkeit an erster Stelle. Wir setzen auf transparente Kommunikation und faire Konditionen für Käufer und Verkäufer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KONTAKT & QUALIFIZIERUNGS-FUNNEL (Direkt unter "Das sind wir") -->
+    <section class="py-16 md:py-24 bg-gray-100 dark:bg-brand-gray border-t border-gray-200 dark:border-white/5 relative scroll-mt-24 lg:scroll-mt-32" id="kontakt">
+        <div class="absolute top-0 right-0 w-full md:w-1/2 h-full bg-brand-gold/10 dark:bg-brand-gold/5 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
+                <!-- Text / Address Data -->
+                <div>
+                    <span data-i18n="cont_tag" class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 md:mb-3 block">Direkter Draht</span>
+                    <h2 data-i18n="cont_title" class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Kontaktieren Sie uns</h2>
+                    <p data-i18n="cont_desc" class="text-gray-600 dark:text-gray-400 mb-8 text-sm md:text-base leading-relaxed">
+                        Bereit für ein Angebot? Rufen Sie uns an oder schreiben Sie uns direkt.
+                    </p>
+                    
+                    <div class="space-y-4 md:space-y-6">
                         <div class="flex items-center">
-                            <div class="w-12 h-12 bg-[#050505] rounded border border-white/10 flex items-center justify-center mr-4 flex-shrink-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-white dark:bg-[#050505] shadow-sm dark:shadow-none rounded border border-gray-200 dark:border-white/10 flex items-center justify-center mr-4 flex-shrink-0">
                                 <i class="fas fa-phone text-brand-gold"></i>
                             </div>
                             <div>
-                                <p data-i18n="cont_phone_lbl" class="text-xs text-gray-500">Rufen Sie uns an</p>
-                                <a href="tel:+4915168586425" class="text-white font-semibold hover:text-brand-gold transition-colors">+49 1516 8586425</a>
+                                <p data-i18n="cont_phone_lbl" class="text-xs md:text-sm text-gray-500">Rufen Sie uns an</p>
+                                <a href="tel:+4915168586425" class="text-gray-900 dark:text-white text-sm md:text-base font-semibold hover:text-brand-gold dark:hover:text-brand-gold transition-colors break-all">+49 1516 8586425</a>
                             </div>
                         </div>
                         <div class="flex items-center">
-                            <div class="w-12 h-12 bg-[#050505] rounded border border-white/10 flex items-center justify-center mr-4 flex-shrink-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-white dark:bg-[#050505] shadow-sm dark:shadow-none rounded border border-gray-200 dark:border-white/10 flex items-center justify-center mr-4 flex-shrink-0">
                                 <i class="fas fa-envelope text-brand-gold"></i>
                             </div>
                             <div class="overflow-hidden">
-                                <p data-i18n="cont_email_lbl" class="text-xs text-gray-500">Schreiben Sie uns</p>
-                                <a href="mailto:westdeutschefahrzeugvermittlung@gmail.com" class="text-white font-semibold hover:text-brand-gold transition-colors break-all">westdeutschefahrzeugvermittlung@gmail.com</a>
+                                <p data-i18n="cont_email_lbl" class="text-xs md:text-sm text-gray-500">Schreiben Sie uns</p>
+                                <a href="mailto:westdeutschefahrzeugvermittlung@gmail.com" class="text-gray-900 dark:text-white text-sm md:text-base font-semibold hover:text-brand-gold dark:hover:text-brand-gold transition-colors break-all md:break-normal">westdeutschefahrzeugvermittlung@gmail.com</a>
                             </div>
                         </div>
                     </div>
-                    <!-- Maps Integration -->
-                    <div class="mt-10 w-full h-48 rounded-sm overflow-hidden border border-white/10 hidden lg:block grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+                    
+                    <!-- Desktop Google Maps iframe -->
+                    <div class="mt-12 w-full h-48 rounded-sm overflow-hidden border border-gray-200 dark:border-white/10 hidden lg:block grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2569.771814696298!2d7.356859773103785!3d49.90308717034829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47be197df9785f99%3A0x500236360e9046d5!2sDiller%20Weg%2023%2C%2055487%20Sohren!5e0!3m2!1sde!2sde!4v1774124884727!5m2!1sde!2sde" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
-                <!-- Form -->
-                <div class="bg-[#050505] p-6 md:p-8 rounded-sm border border-white/10 shadow-2xl">
-                    <h3 data-i18n="form_title" class="text-xl font-bold text-white mb-2">Kontakt Anfrage</h3>
-                    <form action="#" method="POST" class="space-y-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <!-- Formular exakt nach Vorgabe (Screenshot) -->
+                <div class="bg-white dark:bg-[#050505] p-5 sm:p-6 md:p-8 rounded-sm border border-gray-200 dark:border-white/10 shadow-2xl dark:shadow-none w-full">
+                    
+                    <!-- ACHTUNG ENTWICKLER: 
+                         Aktuell steht die Formular-Action auf "#". 
+                         Damit das Formular echte E-Mails versendet, musst du hier 
+                         deine Formspree, Netlify oder PHP URL eintragen! 
+                         Beispiel: action="https://formspree.io/f/DEINE_ID" 
+                    -->
+                    <form action="#" method="POST" class="space-y-4 sm:space-y-5 md:space-y-6">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
                             <div>
-                                <label data-i18n="form_fname" class="block text-xs font-bold uppercase text-gray-400 mb-1">Vorname *</label>
-                                <input type="text" required class="w-full bg-brand-gray border border-white/10 rounded-sm px-4 py-2.5 text-sm text-white focus:border-brand-gold outline-none">
+                                <label data-i18n="form_name_lbl" for="name" class="block text-[10px] md:text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-1.5">Name</label>
+                                <input type="text" id="name" name="name" data-i18n-ph="form_name_ph" placeholder="Max Mustermann" required class="w-full bg-gray-50 dark:bg-[#111] border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm text-gray-900 dark:text-white focus:outline-none focus-visible:border-brand-gold focus-visible:ring-1 focus-visible:ring-brand-gold transition-colors placeholder-gray-400 dark:placeholder-gray-600">
                             </div>
                             <div>
-                                <label data-i18n="form_lname" class="block text-xs font-bold uppercase text-gray-400 mb-1">Nachname *</label>
-                                <input type="text" required class="w-full bg-brand-gray border border-white/10 rounded-sm px-4 py-2.5 text-sm text-white focus:border-brand-gold outline-none">
+                                <label data-i18n="form_tel_lbl" for="phone" class="block text-[10px] md:text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-1.5">Telefon</label>
+                                <input type="tel" id="phone" name="phone" data-i18n-ph="form_tel_ph" placeholder="Ihre Nummer" required class="w-full bg-gray-50 dark:bg-[#111] border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm text-gray-900 dark:text-white focus:outline-none focus-visible:border-brand-gold focus-visible:ring-1 focus-visible:ring-brand-gold transition-colors placeholder-gray-400 dark:placeholder-gray-600">
                             </div>
                         </div>
+
                         <div>
-                            <label data-i18n="form_email" class="block text-xs font-bold uppercase text-gray-400 mb-1">E-Mail *</label>
-                            <input type="email" required class="w-full bg-brand-gray border border-white/10 rounded-sm px-4 py-2.5 text-sm text-white focus:border-brand-gold outline-none">
+                            <label data-i18n="form_email_lbl" for="email" class="block text-[10px] md:text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-1.5">E-Mail Adresse</label>
+                            <input type="email" id="email" name="email" placeholder="mail@example.com" required class="w-full bg-gray-50 dark:bg-[#111] border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm text-gray-900 dark:text-white focus:outline-none focus-visible:border-brand-gold focus-visible:ring-1 focus-visible:ring-brand-gold transition-colors placeholder-gray-400 dark:placeholder-gray-600">
                         </div>
-                        <!-- Expanded Service Selection with Examples -->
+
                         <div>
-                            <label data-i18n="form_service_label" class="block text-xs font-bold uppercase text-gray-400 mb-1">Leistungs-Auswahl *</label>
-                            <select required class="w-full bg-brand-gray border border-white/10 rounded-sm px-4 py-2.5 text-sm text-white focus:border-brand-gold outline-none appearance-none cursor-pointer">
-                                <option value="" disabled selected data-i18n="form_service_opt_default">Bitte wählen Sie eine Beispielleistung...</option>
-                                <option value="hunting" data-i18n="form_service_opt1">Premium Car Hunting (Individuelle Suche)</option>
-                                <option value="new" data-i18n="form_service_opt2">Exklusive Neuwagenvermittlung</option>
-                                <option value="sale" data-i18n="form_service_opt3">Fahrzeugverkauf (Bestpreis-Vermittlung)</option>
-                                <option value="sports" data-i18n="form_service_opt4">Sportwagen & Exoten Vermittlung</option>
-                                <option value="fleet" data-i18n="form_service_opt5">Fuhrparkberatung & Leasing-Service</option>
-                                <option value="classic" data-i18n="form_service_opt6">Oldtimer Check & Suche</option>
-                            </select>
+                            <label data-i18n="form_car_lbl" for="vehicle" class="block text-[10px] md:text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-1.5">Fahrzeug / Modell</label>
+                            <input type="text" id="vehicle" name="vehicle" data-i18n-ph="form_car_ph" placeholder="z.B. Porsche 911, Bj 1980" class="w-full bg-gray-50 dark:bg-[#111] border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm text-gray-900 dark:text-white focus:outline-none focus-visible:border-brand-gold focus-visible:ring-1 focus-visible:ring-brand-gold transition-colors placeholder-gray-400 dark:placeholder-gray-600">
                         </div>
+
                         <div>
-                            <label data-i18n="form_msg" class="block text-xs font-bold uppercase text-gray-400 mb-1">Nachricht *</label>
-                            <textarea rows="4" required class="w-full bg-brand-gray border border-white/10 rounded-sm px-4 py-2.5 text-sm text-white focus:border-brand-gold outline-none"></textarea>
+                            <label data-i18n="form_service_lbl" for="service" class="block text-[10px] md:text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-1.5">Gewünschte Leistung</label>
+                            <div class="relative">
+                                <select id="service" name="service" class="w-full bg-gray-50 dark:bg-[#111] border border-gray-300 dark:border-brand-gold/50 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm text-gray-900 dark:text-white focus:outline-none focus-visible:border-brand-gold focus-visible:ring-1 focus-visible:ring-brand-gold transition-colors appearance-none cursor-pointer pr-10">
+                                    <option data-i18n="form_service_opt_default" value="" disabled selected>Bitte wählen...</option>
+                                    <option data-i18n="form_service_opt1" value="verkauf">Fahrzeug verkaufen (Vermittlung)</option>
+                                    <option data-i18n="form_service_opt2" value="kauf">Fahrzeug suchen (Car Hunting)</option>
+                                    <option data-i18n="form_service_opt3" value="beratung">Allgemeine Beratung</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-brand-gold">
+                                    <i class="fas fa-chevron-down text-sm"></i>
+                                </div>
+                            </div>
                         </div>
-                        <button data-i18n="form_btn" type="submit" class="w-full btn-gold text-white font-bold py-3 rounded-sm uppercase tracking-widest text-sm">Nachricht absenden</button>
+                        
+                        <div>
+                            <label data-i18n="form_msg_lbl" for="message" class="block text-[10px] md:text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-1.5">Nachricht</label>
+                            <textarea id="message" name="message" rows="3" class="w-full bg-gray-50 dark:bg-[#111] border border-gray-300 dark:border-white/10 rounded-sm px-3 md:px-4 py-2.5 md:py-3 text-sm text-gray-900 dark:text-white focus:outline-none focus-visible:border-brand-gold focus-visible:ring-1 focus-visible:ring-brand-gold transition-colors resize-none"></textarea>
+                        </div>
+                        
+                        <div class="flex items-start pt-2">
+                            <div class="flex items-center h-5">
+                                <input id="gdpr" name="gdpr" type="checkbox" required class="w-4 h-4 bg-gray-50 dark:bg-brand-gray border-gray-300 dark:border-white/10 rounded text-brand-gold focus-visible:ring-brand-gold">
+                            </div>
+                            <div class="ml-3 text-xs md:text-sm">
+                                <label data-i18n="form_gdpr" for="gdpr" class="text-gray-600 dark:text-gray-400">Ich stimme der Datenverarbeitung zur Kontaktaufnahme zu.</label>
+                            </div>
+                        </div>
+                        
+                        <button data-i18n="form_btn" type="submit" class="w-full btn-gold text-white font-bold py-3 md:py-4 rounded-sm uppercase tracking-widest text-xs md:text-sm hover:shadow-lg transition-all mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold">
+                            Anfrage senden
+                        </button>
                     </form>
                 </div>
             </div>
-            <!-- Mobile Maps -->
-            <div class="mt-8 w-full h-64 rounded-sm overflow-hidden border border-white/10 lg:hidden grayscale opacity-80">
+            
+            <!-- Mobile Maps Fallback -->
+            <div class="mt-12 w-full h-64 rounded-sm overflow-hidden border border-gray-200 dark:border-white/10 lg:hidden relative z-10 bg-gray-100 dark:bg-[#111]">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2569.771814696298!2d7.356859773103785!3d49.90308717034829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47be197df9785f99%3A0x500236360e9046d5!2sDiller%20Weg%2023%2C%2055487%20Sohren!5e0!3m2!1sde!2sde!4v1774124884727!5m2!1sde!2sde" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </section>
 
-    <!-- ABOUT -->
-    <section class="py-16 md:py-24 bg-[#050505] border-t border-white/5 scroll-mt-24 lg:scroll-mt-32" id="about">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16">
-                <div class="lg:col-span-5 flex flex-col justify-center">
-                    <span data-i18n="about_tag" class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-3">Das sind wir</span>
-                    <h2 data-i18n="about_title" class="text-3xl md:text-4xl font-bold text-white mb-6">Ihr Experte für Fahrzeugvermittlung</h2>
-                    <p data-i18n="about_p1" class="text-gray-400 leading-relaxed mb-6 text-sm sm:text-base">
-                        Als dynamisches und fokussiertes Team kombinieren wir tiefe Branchenkenntnis mit modernsten, datengestützten Analyseverfahren.
-                    </p>
-                    <p data-i18n="about_p2" class="text-gray-400 leading-relaxed text-sm sm:text-base">
-                        Egal ob Neuwagen, Jahreswagen, Gebrauchtwagen, Anhänger oder Motorräder – wir sind Ihr verlässlicher, agiler Partner.
-                    </p>
-                </div>
-                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
-                    <div class="bg-brand-gray p-6 rounded-sm border border-white/5 hover:border-brand-gold transition-colors group">
-                        <div class="w-10 h-10 rounded bg-brand-gold/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fas fa-chart-line text-xl text-brand-gold"></i>
-                        </div>
-                        <h3 data-i18n="feat1_title" class="text-lg font-semibold text-white mb-2">Marktexpertise & Dynamik</h3>
-                        <p data-i18n="feat1_desc" class="text-gray-400 text-xs leading-relaxed">Präzise Analysemethoden sichern Ihnen eine optimale Beratung. Transparent und stets am Puls der Zeit.</p>
-                    </div>
-                    <div class="bg-brand-gray p-6 rounded-sm border border-white/5 hover:border-brand-gold transition-colors group">
-                        <div class="w-10 h-10 rounded bg-brand-gold/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fas fa-users text-xl text-brand-gold"></i>
-                        </div>
-                        <h3 data-i18n="feat2_title" class="text-lg font-semibold text-white mb-2">Individuelle Beratung</h3>
-                        <p data-i18n="feat2_desc" class="text-gray-400 text-xs leading-relaxed">Jeder Kunde hat individuelle Bedürfnisse. Wir nehmen uns die Zeit, diese zu verstehen.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- WUNSCHFAHRZEUG -->
-    <section class="py-20 md:py-32 bg-[#050505] relative overflow-hidden scroll-mt-24 lg:scroll-mt-32" id="wunschfahrzeug">
+    <section class="py-20 md:py-32 bg-[#050505] relative overflow-hidden border-t border-gray-200 dark:border-white/5 scroll-mt-24 lg:scroll-mt-32" id="wunschfahrzeug">
         <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=60&w=1200&auto=format&fit=crop" alt="Premium Cars" loading="lazy" class="w-full h-full object-cover opacity-30 transition-all duration-1000">
-            <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/90 to-transparent"></div>
+            <!-- CLS Optimierung: width/height ergänzt -->
+            <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=60&w=1200&auto=format&fit=crop" alt="Premium Fahrzeugkollektion" width="1200" height="800" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-20 dark:opacity-40 transition-all duration-1000">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-50 via-gray-50/95 dark:from-[#050505] dark:via-[#050505]/90 to-transparent"></div>
         </div>
+        
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="max-w-2xl">
-                <span data-i18n="hunt_tag" class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-3 block">Car Hunting Service</span>
-                <h2 data-i18n="hunt_title" class="text-4xl md:text-5xl font-extrabold text-white mb-4 uppercase tracking-wide leading-tight">
+                <span data-i18n="hunt_tag" class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-3 block drop-shadow-md">Car Hunting Service</span>
+                <h2 data-i18n="hunt_title" class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-4 uppercase tracking-wide leading-tight drop-shadow-lg">
                     Wir finden dein <br><span class="text-brand-gold">Wunschfahrzeug!</span>
                 </h2>
-                <p data-i18n="hunt_sub" class="text-xl md:text-2xl text-gray-300 font-light mb-8">
+                <p data-i18n="hunt_sub" class="text-xl md:text-2xl text-gray-700 dark:text-gray-300 font-light mb-8 drop-shadow-md">
                     Exklusiver Zugang zu <span class="text-brand-gold font-medium">internationalen Fahrzeugkollektionen</span>.
                 </p>
                 <div class="h-1 w-20 bg-brand-gold rounded mb-8"></div>
-                <a href="#kontakt" class="btn-gold text-white px-8 py-4 rounded-sm text-sm font-bold uppercase tracking-widest inline-flex items-center group w-full sm:w-auto justify-center">
+                <p data-i18n="hunt_desc" class="text-gray-600 dark:text-gray-400 mb-10 leading-relaxed max-w-xl text-sm md:text-base">
+                    Sparen Sie sich die mühsame und zeitaufwendige Suche. Nennen Sie uns Ihre genauen Vorstellungen – von Marke und Modell bis hin zur Wunschausstattung. Unser weitreichendes Netzwerk ermöglicht es uns, Fahrzeuge für Sie aufzuspüren, die oft gar nicht erst auf dem freien Markt inseriert werden.
+                </p>
+                <a href="#kontakt" class="btn-gold text-white px-8 py-4 rounded-sm text-sm font-bold uppercase tracking-widest inline-flex items-center transition-all group w-full sm:w-auto justify-center">
                     <span data-i18n="hunt_btn">Suchauftrag erteilen</span> <i class="fas fa-search ml-3 group-hover:scale-110 transition-transform"></i>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- LEISTUNGEN -->
-    <section class="py-16 md:py-24 bg-[#0a0a0a] border-t border-white/5 scroll-mt-24 lg:scroll-mt-32" id="leistungen">
+    <!-- SERVICES -->
+    <section class="py-16 md:py-24 bg-white dark:bg-[#0a0a0a] border-t border-gray-200 dark:border-white/5 scroll-mt-24 lg:scroll-mt-32" id="leistungen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span data-i18n="srv_tag" class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-3 block">Portfolio</span>
-                <h2 data-i18n="srv_title" class="text-3xl md:text-4xl font-bold text-white mb-4">Alle Leistungen im Überblick</h2>
-                <div class="h-1 w-20 bg-brand-gold mx-auto rounded"></div>
+            <div class="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+                <span data-i18n="srv_tag" class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 md:mb-3 block">Portfolio</span>
+                <h2 data-i18n="srv_title" class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Alle Leistungen im Überblick</h2>
+                <div class="h-1 w-16 md:w-20 bg-brand-gold mx-auto rounded"></div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                <div class="bg-[#050505] border border-white/5 rounded-sm overflow-hidden group shadow-sm">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=60&w=600&auto=format&fit=crop" alt="Neuwagen" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent"></div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="bg-gray-50 dark:bg-[#050505] border border-gray-200 dark:border-white/5 rounded-sm overflow-hidden group shadow-sm dark:shadow-none">
+                    <div class="h-40 md:h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=60&w=600&auto=format&fit=crop" alt="Neuwagen" loading="lazy" decoding="async" width="600" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 dark:opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-[#050505] to-transparent"></div>
                     </div>
-                    <div class="p-8">
-                        <h4 data-i18n="srv1_title" class="text-lg font-bold text-white mb-4">Neuwagenvermittlung</h4>
-                        <p data-i18n="srv1_desc" class="text-gray-400 text-sm leading-relaxed">Wir helfen Ihnen, das richtige Neufahrzeug zu finden. Beste Angebote, abgestimmt auf Ihre Wünsche.</p>
-                    </div>
-                </div>
-                <div class="bg-[#050505] border border-white/5 rounded-sm overflow-hidden group shadow-sm">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=60&w=600&auto=format&fit=crop" alt="Gebraucht" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent"></div>
-                    </div>
-                    <div class="p-8">
-                        <h4 data-i18n="srv2_title" class="text-lg font-bold text-white mb-4">Jahres- & Gebrauchtwagen</h4>
-                        <p data-i18n="srv2_desc" class="text-gray-400 text-sm leading-relaxed">Wir prüfen und bewerten Fahrzeuge umfassend, für einen einwandfreien Zustand.</p>
+                    <div class="p-6 md:p-8 relative z-10 bg-gray-50 dark:bg-[#050505]">
+                        <h4 data-i18n="srv1_title" class="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4 group-hover:text-brand-gold transition-colors">Neuwagenvermittlung</h4>
+                        <p data-i18n="srv1_desc" class="text-gray-600 dark:text-gray-400 text-xs md:text-sm leading-relaxed">Wir helfen Ihnen, das richtige Neufahrzeug zu finden. Dank unserer Erfahrung bieten wir Ihnen die besten Angebote, abgestimmt auf Ihre Wünsche.</p>
                     </div>
                 </div>
-                <div class="bg-[#050505] border border-white/5 rounded-sm overflow-hidden group shadow-sm">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=60&w=600&auto=format&fit=crop" alt="Motorrad" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent"></div>
+
+                <div class="bg-gray-50 dark:bg-[#050505] border border-gray-200 dark:border-white/5 rounded-sm overflow-hidden group shadow-sm dark:shadow-none">
+                    <div class="h-40 md:h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=60&w=600&auto=format&fit=crop" alt="Gebrauchtwagen" loading="lazy" decoding="async" width="600" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 dark:opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-[#050505] to-transparent"></div>
                     </div>
-                    <div class="p-8">
-                        <h4 data-i18n="srv3_title" class="text-lg font-bold text-white mb-4">Anhänger & Motorräder</h4>
-                        <p data-i18n="srv3_desc" class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Unser Netzwerk ermöglicht es uns, auch hier genau das richtige Modell zu finden.</p>
+                    <div class="p-6 md:p-8 relative z-10 bg-gray-50 dark:bg-[#050505]">
+                        <h4 data-i18n="srv2_title" class="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4 group-hover:text-brand-gold transition-colors">Jahres- & Gebrauchtwagen</h4>
+                        <p data-i18n="srv2_desc" class="text-gray-600 dark:text-gray-400 text-xs md:text-sm leading-relaxed">Wir prüfen und bewerten Fahrzeuge umfassend, um sicherzustellen, dass Sie ein Fahrzeug in einwandfreiem Zustand erhalten.</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-[#050505] border border-gray-200 dark:border-white/5 rounded-sm overflow-hidden group shadow-sm dark:shadow-none">
+                    <div class="h-40 md:h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=60&w=600&auto=format&fit=crop" alt="Motorrad" loading="lazy" decoding="async" width="600" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 dark:opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-[#050505] to-transparent"></div>
+                    </div>
+                    <div class="p-6 md:p-8 relative z-10 bg-gray-50 dark:bg-[#050505]">
+                        <h4 data-i18n="srv3_title" class="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4 group-hover:text-brand-gold transition-colors">Anhänger & Motorräder</h4>
+                        <p data-i18n="srv3_desc" class="text-gray-600 dark:text-gray-400 text-xs md:text-sm leading-relaxed">Unser Netzwerk ermöglicht es uns, auch bei Anhängern oder Motorrädern genau das richtige Modell für Sie zu finden.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- QUALITÄT -->
-    <section class="py-16 md:py-24 bg-[#050505] border-t border-white/5 scroll-mt-24 lg:scroll-mt-32" id="qualitaet">
+    <!-- QUALITY PROMISE -->
+    <section class="py-16 md:py-24 bg-gray-100 dark:bg-brand-gray border-t border-gray-200 dark:border-white/5 scroll-mt-24 lg:scroll-mt-32" id="qualitaet">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="relative">
-                    <div class="absolute -inset-4 border border-brand-gold/30 rounded-sm translate-x-4 translate-y-4"></div>
-                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=60&w=800&auto=format&fit=crop" alt="Quality" class="relative z-10 w-full h-auto object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div class="relative px-4 sm:px-0">
+                    <div class="absolute -inset-2 md:-inset-4 border-2 border-brand-gold/50 dark:border-brand-gold/30 rounded-sm translate-x-3 translate-y-3 md:translate-x-4 md:translate-y-4"></div>
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=60&w=800&auto=format&fit=crop" alt="Qualitätskontrolle" loading="lazy" decoding="async" width="800" height="533" class="relative z-10 w-full h-auto object-cover rounded-sm transition-all duration-700 shadow-xl dark:shadow-none grayscale hover:grayscale-0">
                 </div>
-                <div class="space-y-6">
-                    <span data-i18n="qual_tag" class="text-brand-gold font-bold tracking-widest uppercase text-xs">Sicherheit</span>
-                    <h2 data-i18n="qual_title" class="text-3xl md:text-4xl font-bold text-white">Unsere Qualitätsversprechen</h2>
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-4"><i class="fas fa-check-circle text-brand-gold mt-1"></i> <span data-i18n="qual_l1" class="text-gray-400">Neue HU/AU ohne Mängel</span></li>
-                        <li class="flex items-start gap-4"><i class="fas fa-check-circle text-brand-gold mt-1"></i> <span data-i18n="qual_l2" class="text-gray-400">Aktueller Service nach Herstellervorgabe</span></li>
-                        <li class="flex items-start gap-4"><i class="fas fa-check-circle text-brand-gold mt-1"></i> <span data-i18n="qual_l3" class="text-gray-400">Kein Wartungsstau & sauberer Fehlerspeicher</span></li>
-                        <li class="flex items-start gap-4"><i class="fas fa-check-circle text-brand-gold mt-1"></i> <span data-i18n="qual_l4" class="text-gray-400">Professionelle Mängelbehebung</span></li>
+                
+                <div>
+                    <span data-i18n="qual_tag" class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 md:mb-3 block">Sicherheit</span>
+                    <h2 data-i18n="qual_title" class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Unsere Qualitätsversprechen</h2>
+                    <p data-i18n="qual_desc" class="text-gray-600 dark:text-gray-400 mb-6 md:mb-8 text-sm md:text-base">Alle von uns vermittelten Fahrzeuge haben, wenn möglich:</p>
+                    
+                    <ul class="space-y-3 md:space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-brand-gold mt-1 mr-3 md:mr-4"></i>
+                            <span data-i18n="qual_l1" class="text-gray-700 dark:text-gray-300 text-sm md:text-base">Eine neue Haupt- und Abgasuntersuchung ohne Mängel</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-brand-gold mt-1 mr-3 md:mr-4"></i>
+                            <span data-i18n="qual_l2" class="text-gray-700 dark:text-gray-300 text-sm md:text-base">Einen aktuellen Service und Servicenachweis unter Berücksichtigung der Herstellervorgaben</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-brand-gold mt-1 mr-3 md:mr-4"></i>
+                            <span data-i18n="qual_l3" class="text-gray-700 dark:text-gray-300 text-sm md:text-base">Keinen Wartungsstau; der Fehlerspeicher im System ist ohne Einträge</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-brand-gold mt-1 mr-3 md:mr-4"></i>
+                            <span data-i18n="qual_l4" class="text-gray-700 dark:text-gray-300 text-sm md:text-base">Festgestellte Mängel werden professionell behoben</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-brand-gold mt-1 mr-3 md:mr-4"></i>
+                            <span data-i18n="qual_l5" class="text-gray-700 dark:text-gray-300 text-sm md:text-base">Eine Garantie, sei es herstellerseitig oder eine Gebrauchtwagengarantie mit 100% Deckungsumfang</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- CUSTOMER REVIEWS -->
+    <section class="py-16 md:py-24 bg-white dark:bg-[#0a0a0a] border-t border-gray-200 dark:border-white/5 relative overflow-hidden scroll-mt-24 lg:scroll-mt-32" id="bewertungen">
+        <div class="absolute top-10 left-4 sm:left-10 text-7xl sm:text-9xl text-brand-gold/5 font-serif select-none pointer-events-none">"</div>
+        <div class="absolute bottom-10 right-4 sm:right-10 text-7xl sm:text-9xl text-brand-gold/5 font-serif select-none pointer-events-none">"</div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                <span data-i18n="rev_tag" class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 md:mb-3 block">Social Proof</span>
+                <h2 data-i18n="rev_title" class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+                    Zufriedenheit ist kein Zufall.<br>
+                    <span class="text-xl md:text-2xl font-normal text-gray-600 dark:text-gray-400 mt-2 block">Sie ist das Resultat kompromissloser Qualität.</span>
+                </h2>
+                
+                <div class="flex flex-col items-center justify-center space-y-2 mt-8">
+                    <div class="flex text-brand-gold text-xl md:text-2xl gap-1 drop-shadow-md">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p data-i18n="rev_rating" class="text-sm md:text-base text-gray-700 dark:text-gray-300 font-medium">
+                        <span class="font-bold text-gray-900 dark:text-white">5.0 / 5 Sternen</span> basierend auf unseren Vermittlungen
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-white/5 rounded-sm p-6 md:p-8 hover:border-brand-gold/50 dark:hover:border-brand-gold/30 transition-all duration-300 shadow-sm dark:shadow-none group flex flex-col">
+                    <div class="flex text-brand-gold text-sm mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p data-i18n="rev1_text" class="text-gray-600 dark:text-gray-300 text-sm md:text-base italic leading-relaxed mb-6 flex-grow">
+                        "Reibungsloser Ablauf und absolute Transparenz. Mein Porsche wurde innerhalb von 2 Wochen zum Bestpreis vermittelt, ohne dass ich mich um Probefahrten kümmern musste."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <div class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold font-bold">MT</div>
+                        <div>
+                            <p class="text-sm font-bold text-gray-900 dark:text-white">Michael T.</p>
+                            <p data-i18n="rev1_role" class="text-xs text-gray-500">Erfolgreiche Vermittlung</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-white/5 rounded-sm p-6 md:p-8 hover:border-brand-gold/50 dark:hover:border-brand-gold/30 transition-all duration-300 shadow-sm dark:shadow-none group flex flex-col transform md:-translate-y-4">
+                    <div class="flex text-brand-gold text-sm mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p data-i18n="rev2_text" class="text-gray-600 dark:text-gray-300 text-sm md:text-base italic leading-relaxed mb-6 flex-grow">
+                        "Als Laie fühlte ich mich perfekt an die Hand genommen. Das Car Hunting Team hat mir genau den BMW M4 besorgt, den ich monatelang vergeblich gesucht habe."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <div class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold font-bold">SW</div>
+                        <div>
+                            <p class="text-sm font-bold text-gray-900 dark:text-white">Sarah W.</p>
+                            <p data-i18n="rev2_role" class="text-xs text-gray-500">Car Hunting Mandat</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-white/5 rounded-sm p-6 md:p-8 hover:border-brand-gold/50 dark:hover:border-brand-gold/30 transition-all duration-300 shadow-sm dark:shadow-none group flex flex-col">
+                    <div class="flex text-brand-gold text-sm mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p data-i18n="rev3_text" class="text-gray-600 dark:text-gray-300 text-sm md:text-base italic leading-relaxed mb-6 flex-grow">
+                        "Professionell, schnell und äußerst diskret. Die Qualität der Fahrzeugaufbereitung vor der Übergabe war makellos. Klare Empfehlung für Exklusivität."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <div class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold font-bold">AK</div>
+                        <div>
+                            <p data-i18n="rev3_name" class="text-sm font-bold text-gray-900 dark:text-white">Dr. Andreas K.</p>
+                            <p data-i18n="rev3_role" class="text-xs text-gray-500">Erfolgreicher Fahrzeugkauf</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-16 md:py-24 bg-gray-100 dark:bg-[#050505] border-t border-gray-200 dark:border-white/5 scroll-mt-24 lg:scroll-mt-32" id="faq">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 md:mb-16">
+                <span data-i18n="faq_tag" class="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 md:mb-3 block">Transparent informiert</span>
+                <h2 data-i18n="faq_title" class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Häufig gestellte Fragen</h2>
+            </div>
+
+            <div class="space-y-3 md:space-y-4">
+                <details class="group bg-white dark:bg-brand-gray border border-gray-200 dark:border-white/10 rounded-sm overflow-hidden shadow-sm dark:shadow-none" open>
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 sm:p-5 md:p-6 text-gray-900 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold transition-colors">
+                        <span data-i18n="faq1_q" class="text-sm sm:text-base md:text-lg pr-4">Wie lange dauert die Vermittlung eines Fahrzeugs?</span>
+                        <span class="transition group-open:rotate-180 flex-shrink-0"><i class="fas fa-chevron-down text-brand-gold"></i></span>
+                    </summary>
+                    <div data-i18n="faq1_a" class="text-gray-600 dark:text-gray-400 px-4 sm:px-5 md:px-6 pb-4 sm:pb-5 md:pb-6 leading-relaxed text-xs sm:text-sm md:text-base">
+                        Die Dauer der Vermittlung hängt von Ihren spezifischen Anforderungen und der Verfügbarkeit der Fahrzeuge ab. In der Regel können wir jedoch innerhalb weniger Tage bis Wochen ein passendes Fahrzeug für Sie finden.
+                    </div>
+                </details>
+
+                <details class="group bg-white dark:bg-brand-gray border border-gray-200 dark:border-white/10 rounded-sm overflow-hidden shadow-sm dark:shadow-none">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 sm:p-5 md:p-6 text-gray-900 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold transition-colors">
+                        <span data-i18n="faq2_q" class="text-sm sm:text-base md:text-lg pr-4">Was kostet die Fahrzeugvermittlung?</span>
+                        <span class="transition group-open:rotate-180 flex-shrink-0"><i class="fas fa-chevron-down text-brand-gold"></i></span>
+                    </summary>
+                    <div data-i18n="faq2_a" class="text-gray-600 dark:text-gray-400 px-4 sm:px-5 md:px-6 pb-4 sm:pb-5 md:pb-6 leading-relaxed text-xs sm:text-sm md:text-base">
+                        Unsere Vermittlungsgebühren richten sich nach dem Wert des Fahrzeugs und dem Umfang der gewünschten Leistungen. Kontaktieren Sie uns für ein unverbindliches Angebot.
+                    </div>
+                </details>
+
+                <details class="group bg-white dark:bg-brand-gray border border-gray-200 dark:border-white/10 rounded-sm overflow-hidden shadow-sm dark:shadow-none">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 sm:p-5 md:p-6 text-gray-900 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold transition-colors">
+                        <span data-i18n="faq3_q" class="text-sm sm:text-base md:text-lg pr-4">Kann ich mein altes Fahrzeug in Zahlung geben?</span>
+                        <span class="transition group-open:rotate-180 flex-shrink-0"><i class="fas fa-chevron-down text-brand-gold"></i></span>
+                    </summary>
+                    <div data-i18n="faq3_a" class="text-gray-600 dark:text-gray-400 px-4 sm:px-5 md:px-6 pb-4 sm:pb-5 md:pb-6 leading-relaxed text-xs sm:text-sm md:text-base">
+                        Ja, wir bieten Ihnen die Möglichkeit, Ihr altes Fahrzeug in Zahlung zu geben. Unsere Experten bewerten Ihr Fahrzeug fair und transparent.
+                    </div>
+                </details>
+
+                <details class="group bg-white dark:bg-brand-gray border border-gray-200 dark:border-white/10 rounded-sm overflow-hidden shadow-sm dark:shadow-none">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 sm:p-5 md:p-6 text-gray-900 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold transition-colors">
+                        <span data-i18n="faq4_q" class="text-sm sm:text-base md:text-lg pr-4">Welche Fahrzeugtypen vermitteln Sie?</span>
+                        <span class="transition group-open:rotate-180 flex-shrink-0"><i class="fas fa-chevron-down text-brand-gold"></i></span>
+                    </summary>
+                    <div data-i18n="faq4_a" class="text-gray-600 dark:text-gray-400 px-4 sm:px-5 md:px-6 pb-4 sm:pb-5 md:pb-6 leading-relaxed text-xs sm:text-sm md:text-base">
+                        Wir vermitteln Neuwagen, Jahreswagen, Gebrauchtwagen, Anhänger und Motorräder aller gängigen Marken und Modelle.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
     <!-- FOOTER -->
-    <footer class="bg-black py-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+    <!-- ACHTUNG ENTWICKLER: Die Links im Footer zeigen auf "#". Für rechtliche Sicherheit 
+         müssen hier noch echte Seiten (z.B. impressum.html) verlinkt werden! -->
+    <footer class="bg-gray-900 dark:bg-black py-10 md:py-12 border-t border-gray-800 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                <div data-i18n="foot_copy" class="text-gray-500 text-xs">
+                <div data-i18n="foot_copy" class="text-gray-400 dark:text-gray-500 text-xs md:text-sm text-center md:text-left">
                     &copy; 2026 Westdeutsche Fahrzeugvermittlung UG (haftungsbeschränkt). Alle Rechte vorbehalten.
                 </div>
-                <div class="flex flex-wrap justify-center gap-6 text-xs font-medium">
-                    <a href="#kontakt" data-i18n="foot_link1" class="text-gray-400 hover:text-brand-gold transition-colors">KONTAKT</a>
-                    <a href="#" class="text-gray-400 hover:text-brand-gold transition-colors uppercase">IMPRESSUM</a>
-                    <a href="#" class="text-gray-400 hover:text-brand-gold transition-colors uppercase">DATENSCHUTZ</a>
+                <div class="flex flex-wrap justify-center gap-4 md:gap-6 text-xs md:text-sm font-medium">
+                    <a href="#kontakt" data-i18n="foot_link1" class="text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors">KONTAKT</a>
+                    <a href="#" data-i18n="foot_link2" class="text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors">IMPRESSUM</a>
+                    <a href="#" data-i18n="foot_link3" class="text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors">DATENSCHUTZ</a>
+                    <a href="#" data-i18n="foot_link4" class="text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors">WIDERRUFSBELEHRUNG</a>
+                    <a href="#" data-i18n="foot_link5" class="text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors">AGB</a>
                 </div>
             </div>
         </div>
@@ -483,38 +699,43 @@
 
     <!-- SCRIPT LOGIC -->
     <script>
-        // 1. Unified Menu Logic
-        const menuToggleBtn = document.getElementById('menu-toggle-btn');
-        const mainMenu = document.getElementById('main-menu');
-        const menuIcon = menuToggleBtn?.querySelector('i');
+        // 1. Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
         
-        if (menuToggleBtn && mainMenu) {
-            menuToggleBtn.addEventListener('click', function() {
-                const isHidden = mainMenu.classList.toggle('hidden');
-                menuIcon.classList.toggle('fa-bars', isHidden);
-                menuIcon.classList.toggle('fa-times', !isHidden);
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', function() {
+                const isHidden = mobileMenu.classList.toggle('hidden');
+                mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
             });
             
-            const menuLinks = document.querySelectorAll('#main-menu a');
-            menuLinks.forEach(link => {
+            const mobileLinks = document.querySelectorAll('#mobile-menu a');
+            mobileLinks.forEach(link => {
                 link.addEventListener('click', () => {
-                    mainMenu.classList.add('hidden');
-                    menuIcon.classList.add('fa-bars');
-                    menuIcon.classList.remove('fa-times');
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
                 });
             });
         }
 
-        // 2. Theme Toggle Logic
-        const themeToggleMenu = document.getElementById('theme-toggle-menu');
-        const menuThemeIcon = document.getElementById('menu-theme-icon');
-
+        // 2. Dark / Light Mode Toggle Logic
+        const themeToggleBtnDesktop = document.getElementById('theme-toggle');
+        const themeToggleBtnMobile = document.getElementById('theme-toggle-mobile');
+        
         function setToggleIcon() {
             const isDark = document.documentElement.classList.contains('dark');
-            if (menuThemeIcon) {
-                menuThemeIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+            const toggleDarkIcons = document.querySelectorAll('#theme-toggle-dark-icon, #theme-toggle-dark-icon-mobile');
+            const toggleLightIcons = document.querySelectorAll('#theme-toggle-light-icon, #theme-toggle-light-icon-mobile');
+            
+            if (isDark) {
+                toggleDarkIcons.forEach(icon => icon?.classList.add('hidden'));
+                toggleLightIcons.forEach(icon => icon?.classList.remove('hidden'));
+            } else {
+                toggleLightIcons.forEach(icon => icon?.classList.add('hidden'));
+                toggleDarkIcons.forEach(icon => icon?.classList.remove('hidden'));
             }
         }
+
         setToggleIcon();
 
         function handleThemeToggle() {
@@ -524,21 +745,22 @@
             setToggleIcon();
         }
 
-        if (themeToggleMenu) themeToggleMenu.addEventListener('click', handleThemeToggle);
+        if (themeToggleBtnDesktop) themeToggleBtnDesktop.addEventListener('click', handleThemeToggle);
+        if (themeToggleBtnMobile) themeToggleBtnMobile.addEventListener('click', handleThemeToggle);
 
-        // 3. Translation Logic
+        // 3. COMPLETE i18n Translation Logic
         const translations = {
             de: {
-                nav_logo_sub: "Fahrzeugvermittlung",
+                nav_logo_sub: "FAHRZEUGVERMITTLUNG",
                 nav_wunschfahrzeug: "Wunschfahrzeug",
                 nav_leistungen: "Leistungen",
                 nav_qualitaet: "Qualität",
                 nav_bewertungen: "Bewertungen",
                 nav_faq: "FAQ",
                 nav_kontakt: "Kontakt",
-                nav_lang_label: "Sprache wählen",
+                nav_lang_label: "<i class='fas fa-globe'></i> Sprache / Language",
                 nav_theme_label: "Erscheinungsbild",
-                theme_btn_text: "Modus umschalten",
+                theme_btn_text: "Dark Mode umschalten",
                 hero_title: "Wir bringen Ihr Fahrzeug <br class='hidden sm:block'> an den <span class='text-gold-gradient font-bold'>passenden Käufer.</span>",
                 hero_subtitle: "Profitieren Sie von einem <span class='text-brand-gold font-semibold'>bestmöglichen Verkaufspreis</span> bei <span class='text-white font-semibold border-b border-brand-gold pb-1'>minimalem</span> Eigenaufwand.",
                 hero_btn: "Kontaktieren Sie mich <span class='text-xs font-normal opacity-90 mt-1 tracking-normal block'>für eine unverbindliche</span>",
@@ -547,133 +769,343 @@
                 wa_tooltip: "Jetzt schreiben!",
                 about_tag: "Das sind wir",
                 about_title: "Ihr Experte für Fahrzeugvermittlung",
+                about_p1: "Als dynamisches und fokussiertes Team kombinieren wir tiefe Branchenkenntnis mit modernsten, datengestützten Analyseverfahren. Anstatt uns auf veralteten Standards auszuruhen, nutzen wir innovative Vermarktungsstrategien und unser weitreichendes Netzwerk, um das perfekte Fahrzeug für Sie zu finden oder Ihren Gebrauchten zum Bestpreis zu vermitteln.",
+                about_p2: "Egal ob Neuwagen, Jahreswagen, Gebrauchtwagen, Anhänger oder Motorräder – wir sind Ihr verlässlicher, agiler Partner.",
+                feat1_title: "Marktexpertise & Dynamik",
+                feat1_desc: "Mit einem fundierten Verständnis für den aktuellen Automobilmarkt und präzisen Analysemethoden sichern wir Ihnen eine optimale Beratung. Transparent und stets am Puls der Zeit.",
+                feat2_title: "Individuelle Beratung",
+                feat2_desc: "Jeder Kunde hat individuelle Bedürfnisse und Anforderungen. Wir nehmen uns die Zeit, diese zu verstehen und das passende Fahrzeug für Sie zu finden.",
+                feat3_title: "Rundum-Service",
+                feat3_desc: "Von der Beratung über die Vermittlung bis hin zur Kaufabwicklung – wir bieten Ihnen einen umfassenden Service aus einer Hand. Einfach und stressfrei.",
+                feat4_title: "Vertrauen & Zuverlässigkeit",
+                feat4_desc: "Bei uns stehen Vertrauen und Zuverlässigkeit an erster Stelle. Wir setzen auf transparente Kommunikation und faire Konditionen für Käufer und Verkäufer.",
+                
                 cont_tag: "Direkter Draht",
                 cont_title: "Kontaktieren Sie uns",
-                cont_desc: "Sie suchen ein neues Auto, einen Anhänger oder ein Motorrad? Lassen Sie sich von unseren Experten beraten.",
+                cont_desc: "Bereit für ein Angebot? Rufen Sie uns an oder schreiben Sie uns direkt.",
                 cont_phone_lbl: "Rufen Sie uns an",
                 cont_email_lbl: "Schreiben Sie uns",
+                cont_loc_lbl: "Unser Standort",
+                cont_loc_btn: "In Google Maps öffnen",
+                
                 form_title: "Kontakt Anfrage",
-                form_fname: "Vorname *",
-                form_lname: "Nachname *",
-                form_email: "E-Mail *",
-                form_service_label: "Leistungs-Auswahl *",
-                form_service_opt_default: "Bitte wählen Sie eine Beispielleistung...",
-                form_service_opt1: "Premium Car Hunting (Individuelle Suche)",
-                form_service_opt2: "Exklusive Neuwagenvermittlung",
-                form_service_opt3: "Fahrzeugverkauf (Bestpreis-Vermittlung)",
-                form_service_opt4: "Sportwagen & Exoten Vermittlung",
-                form_service_opt5: "Fuhrparkberatung & Leasing-Service",
-                form_service_opt6: "Oldtimer Check & Suche",
-                form_msg: "Ihre Nachricht *",
-                form_btn: "Nachricht absenden",
-                foot_copy: "&copy; 2026 Westdeutsche Fahrzeugvermittlung UG. Alle Rechte vorbehalten.",
-                foot_link1: "KONTAKT"
+                form_desc: "Wie können wir Ihnen helfen?",
+                form_name_lbl: "Name",
+                form_name_ph: "Max Mustermann",
+                form_tel_lbl: "Telefon",
+                form_tel_ph: "Ihre Nummer",
+                form_email_lbl: "E-Mail Adresse",
+                form_car_lbl: "Fahrzeug / Modell",
+                form_car_ph: "z.B. Porsche 911, Bj 1980",
+                form_service_lbl: "Gewünschte Leistung",
+                form_service_opt_default: "Bitte wählen...",
+                form_service_opt1: "Fahrzeug verkaufen (Vermittlung)",
+                form_service_opt2: "Fahrzeug suchen (Car Hunting)",
+                form_service_opt3: "Allgemeine Beratung",
+                form_msg_lbl: "Nachricht",
+                form_gdpr: "Ich stimme der Datenverarbeitung zur Kontaktaufnahme zu.",
+                form_btn: "Anfrage senden",
+                
+                hunt_tag: "Car Hunting Service",
+                hunt_title: "Wir finden dein <br><span class='text-brand-gold'>Wunschfahrzeug!</span>",
+                hunt_sub: "Exklusiver Zugang zu <span class='text-brand-gold font-medium'>internationalen Fahrzeugkollektionen</span>.",
+                hunt_desc: "Sparen Sie sich die mühsame und zeitaufwendige Suche. Nennen Sie uns Ihre genauen Vorstellungen – von Marke und Modell bis hin zur Wunschausstattung. Unser weitreichendes Netzwerk ermöglicht es uns, Fahrzeuge für Sie aufzuspüren, die oft gar nicht erst auf dem freien Markt inseriert werden.",
+                hunt_btn: "Suchauftrag erteilen",
+                srv_tag: "Portfolio",
+                srv_title: "Alle Leistungen im Überblick",
+                srv1_title: "Neuwagenvermittlung",
+                srv1_desc: "Wir helfen Ihnen, das richtige Neufahrzeug zu finden. Dank unserer Erfahrung bieten wir Ihnen die besten Angebote, abgestimmt auf Ihre Wünsche.",
+                srv2_title: "Jahres- & Gebrauchtwagen",
+                srv2_desc: "Wir prüfen und bewerten Fahrzeuge umfassend, um sicherzustellen, dass Sie ein Fahrzeug in einwandfreiem Zustand erhalten.",
+                srv3_title: "Anhänger & Motorräder",
+                srv3_desc: "Unser Netzwerk ermöglicht es uns, auch bei Anhängern oder Motorrädern genau das richtige Modell für Sie zu finden.",
+                qual_tag: "Sicherheit",
+                qual_title: "Unsere Qualitätsversprechen",
+                qual_desc: "Alle von uns vermittelten Fahrzeuge haben, wenn möglich:",
+                qual_l1: "Eine neue Haupt- und Abgasuntersuchung ohne Mängel",
+                qual_l2: "Einen aktuellen Service und Servicenachweis unter Berücksichtigung der Herstellervorgaben",
+                qual_l3: "Keinen Wartungsstau; der Fehlerspeicher im System ist ohne Einträge",
+                qual_l4: "Festgestellte Mängel werden professionell behoben",
+                qual_l5: "Eine Garantie, sei es herstellerseitig oder eine Gebrauchtwagengarantie mit 100% Deckungsumfang",
+                rev_tag: "Social Proof",
+                rev_title: "Zufriedenheit ist kein Zufall.<br><span class='text-xl md:text-2xl font-normal text-gray-600 dark:text-gray-400 mt-2 block'>Sie ist das Resultat kompromissloser Qualität.</span>",
+                rev_rating: "<span class='font-bold text-gray-900 dark:text-white'>5.0 / 5 Sternen</span> basierend auf unseren Vermittlungen",
+                rev1_text: "\"Reibungsloser Ablauf und absolute Transparenz. Mein Porsche wurde innerhalb von 2 Wochen zum Bestpreis vermittelt, ohne dass ich mich um Probefahrten kümmern musste.\"",
+                rev1_role: "Erfolgreiche Vermittlung",
+                rev2_text: "\"Als Laie fühlte ich mich perfekt an die Hand genommen. Das Car Hunting Team hat mir genau den BMW M4 besorgt, den ich monatelang vergeblich gesucht habe.\"",
+                rev2_role: "Car Hunting Mandat",
+                rev3_text: "\"Professionell, schnell und äußerst diskret. Die Qualität der Fahrzeugaufbereitung vor der Übergabe war makellos. Klare Empfehlung für Exklusivität.\"",
+                rev3_name: "Dr. Andreas K.",
+                rev3_role: "Erfolgreicher Fahrzeugkauf",
+                faq_tag: "Transparent informiert",
+                faq_title: "Häufig gestellte Fragen",
+                faq1_q: "Wie lange dauert die Vermittlung eines Fahrzeugs?",
+                faq1_a: "Die Dauer der Vermittlung hängt von Ihren spezifischen Anforderungen und der Verfügbarkeit der Fahrzeuge ab. In der Regel können wir jedoch innerhalb weniger Tage bis Wochen ein passendes Fahrzeug für Sie finden.",
+                faq2_q: "Was kostet die Fahrzeugvermittlung?",
+                faq2_a: "Unsere Vermittlungsgebühren richten sich nach dem Wert des Fahrzeugs und dem Umfang der gewünschten Leistungen. Kontaktieren Sie uns für ein unverbindliches Angebot.",
+                faq3_q: "Kann ich mein altes Fahrzeug in Zahlung geben?",
+                faq3_a: "Ja, wir bieten Ihnen die Möglichkeit, Ihr altes Fahrzeug in Zahlung zu geben. Unsere Experten bewerten Ihr Fahrzeug fair und transparent.",
+                faq4_q: "Welche Fahrzeugtypen vermitteln Sie?",
+                faq4_a: "Wir vermitteln Neuwagen, Jahreswagen, Gebrauchtwagen, Anhänger und Motorräder aller gängigen Marken und Modelle.",
+                foot_copy: "&copy; 2026 Westdeutsche Fahrzeugvermittlung UG (haftungsbeschränkt). Alle Rechte vorbehalten.",
+                foot_link1: "KONTAKT",
+                foot_link2: "IMPRESSUM",
+                foot_link3: "DATENSCHUTZ",
+                foot_link4: "WIDERRUFSBELEHRUNG",
+                foot_link5: "AGB"
             },
             en: {
-                nav_logo_sub: "Vehicle Brokerage",
+                nav_logo_sub: "VEHICLE BROKERAGE",
                 nav_wunschfahrzeug: "Dream Car",
                 nav_leistungen: "Services",
                 nav_qualitaet: "Quality",
                 nav_bewertungen: "Reviews",
                 nav_faq: "FAQ",
                 nav_kontakt: "Contact",
-                nav_lang_label: "Select Language",
+                nav_lang_label: "<i class='fas fa-globe'></i> Language",
                 nav_theme_label: "Appearance",
-                theme_btn_text: "Toggle Mode",
+                theme_btn_text: "Toggle Dark Mode",
                 hero_title: "We bring your vehicle <br class='hidden sm:block'> to the <span class='text-gold-gradient font-bold'>right buyer.</span>",
-                hero_subtitle: "Benefit from the <span class='text-brand-gold font-semibold'>best possible price</span> with <span class='text-white font-semibold border-b border-brand-gold pb-1'>minimal</span> effort.",
+                hero_subtitle: "Benefit from the <span class='text-brand-gold font-semibold'>best possible selling price</span> with <span class='text-white font-semibold border-b border-brand-gold pb-1'>minimal</span> effort.",
                 hero_btn: "Contact me <span class='text-xs font-normal opacity-90 mt-1 tracking-normal block'>for a non-binding</span>",
                 hero_besprechung: "Consultation!",
                 hero_kleinanzeigen: "Our offers directly on",
                 wa_tooltip: "Message us!",
                 about_tag: "Who we are",
                 about_title: "Your vehicle brokerage expert",
+                about_p1: "As a dynamic and focused team, we combine deep industry knowledge with state-of-the-art, data-driven analysis methods. Instead of resting on outdated standards, we use innovative marketing strategies and our extensive network to find the perfect vehicle for you or sell your used car at the best price.",
+                about_p2: "Whether new cars, year-old cars, used cars, trailers, or motorcycles – we are your reliable, agile partner.",
+                feat1_title: "Market Expertise & Dynamics",
+                feat1_desc: "With a profound understanding of the current automotive market and precise analysis methods, we ensure optimal advice. Transparent and always up-to-date.",
+                feat2_title: "Individual Consulting",
+                feat2_desc: "Every customer has individual needs and requirements. We take the time to understand them and find the right vehicle for you.",
+                feat3_title: "All-Round Service",
+                feat3_desc: "From consulting and brokerage to the purchase transaction – we offer you a comprehensive service from a single source. Simple and stress-free.",
+                feat4_title: "Trust & Reliability",
+                feat4_desc: "Trust and reliability are our top priorities. We rely on transparent communication and fair conditions for buyers and sellers.",
+                
                 cont_tag: "Direct Line",
                 cont_title: "Contact Us",
-                cont_desc: "Looking for a new car, trailer or motorcycle? Let our experts advise you.",
+                cont_desc: "Ready for an offer? Call us or write us directly.",
                 cont_phone_lbl: "Call us",
                 cont_email_lbl: "Email us",
+                cont_loc_lbl: "Our Location",
+                cont_loc_btn: "Open in Google Maps",
+                
                 form_title: "Contact Request",
-                form_fname: "First Name *",
-                form_lname: "Last Name *",
-                form_email: "Email *",
-                form_service_label: "Service Selection *",
-                form_service_opt_default: "Please select a sample service...",
-                form_service_opt1: "Premium Car Hunting (Custom Search)",
-                form_service_opt2: "Exclusive New Car Brokerage",
-                form_service_opt3: "Vehicle Sales (Best Price Brokerage)",
-                form_service_opt4: "Sports Car & Exotics Brokerage",
-                form_service_opt5: "Fleet Consulting & Leasing",
-                form_service_opt6: "Classic Car Check & Search",
-                form_msg: "Your Message *",
-                form_btn: "Send Message",
-                foot_copy: "&copy; 2026 Westdeutsche Fahrzeugvermittlung UG. All rights reserved.",
-                foot_link1: "CONTACT"
+                form_desc: "How can we help you?",
+                form_name_lbl: "Name",
+                form_name_ph: "John Doe",
+                form_tel_lbl: "Phone",
+                form_tel_ph: "Your Number",
+                form_email_lbl: "Email Address",
+                form_car_lbl: "Vehicle / Model",
+                form_car_ph: "e.g. Porsche 911, Year 1980",
+                form_service_lbl: "Desired Service",
+                form_service_opt_default: "Please select...",
+                form_service_opt1: "Sell a vehicle (Brokerage)",
+                form_service_opt2: "Find a vehicle (Car Hunting)",
+                form_service_opt3: "General Consulting",
+                form_msg_lbl: "Message",
+                form_gdpr: "I agree to the data processing for the purpose of contacting me.",
+                form_btn: "Send Request",
+
+                hunt_tag: "Car Hunting Service",
+                hunt_title: "We will find your <br><span class='text-brand-gold'>Dream Car!</span>",
+                hunt_sub: "Exclusive access to <span class='text-brand-gold font-medium'>international vehicle collections</span>.",
+                hunt_desc: "Save yourself the tedious and time-consuming search. Tell us your exact requirements – from make and model to desired equipment. Our extensive network allows us to track down vehicles for you that often never even make it to the open market.",
+                hunt_btn: "Submit search request",
+                srv_tag: "Portfolio",
+                srv_title: "All services at a glance",
+                srv1_title: "New Car Brokerage",
+                srv1_desc: "We help you find the right new vehicle. Thanks to our experience, we offer you the best deals, tailored to your wishes.",
+                srv2_title: "Year-old & Used Cars",
+                srv2_desc: "We comprehensively inspect and evaluate vehicles to ensure you receive a vehicle in flawless condition.",
+                srv3_title: "Trailers & Motorcycles",
+                srv3_desc: "Our network allows us to find exactly the right model for you, even for trailers or motorcycles.",
+                qual_tag: "Security",
+                qual_title: "Our Quality Promises",
+                qual_desc: "All vehicles brokered by us have, whenever possible:",
+                qual_l1: "A new main and emissions inspection without defects",
+                qual_l2: "An up-to-date service and service record in accordance with manufacturer specifications",
+                qual_l3: "No maintenance backlog; the system fault memory is clear",
+                qual_l4: "Identified defects are professionally repaired",
+                qual_l5: "A warranty, whether manufacturer-backed or a used car warranty with 100% coverage",
+                rev_tag: "Social Proof",
+                rev_title: "Satisfaction is no coincidence.<br><span class='text-xl md:text-2xl font-normal text-gray-600 dark:text-gray-400 mt-2 block'>It is the result of uncompromising quality.</span>",
+                rev_rating: "<span class='font-bold text-gray-900 dark:text-white'>5.0 / 5 stars</span> based on our brokerages",
+                rev1_text: "\"Smooth process and absolute transparency. My Porsche was brokered at the best price within 2 weeks without me having to deal with test drives.\"",
+                rev1_role: "Successful Brokerage",
+                rev2_text: "\"As a layman, I felt perfectly taken care of. The Car Hunting team got me exactly the BMW M4 I had been looking for in vain for months.\"",
+                rev2_role: "Car Hunting Mandate",
+                rev3_text: "\"Professional, fast and extremely discreet. The quality of the vehicle preparation before handover was flawless. Clear recommendation for exclusivity.\"",
+                rev3_name: "Dr. Andreas K.",
+                rev3_role: "Successful Vehicle Purchase",
+                faq_tag: "Transparent Information",
+                faq_title: "Frequently Asked Questions",
+                faq1_q: "How long does it take to broker a vehicle?",
+                faq1_a: "The duration of the brokerage depends on your specific requirements and the availability of the vehicles. However, we can usually find a suitable vehicle for you within a few days to weeks.",
+                faq2_q: "How much does the vehicle brokerage cost?",
+                faq2_a: "Our brokerage fees depend on the value of the vehicle and the scope of the desired services. Contact us for a non-binding offer.",
+                faq3_q: "Can I trade in my old vehicle?",
+                faq3_a: "Yes, we offer you the possibility to trade in your old vehicle. Our experts will evaluate your vehicle fairly and transparently.",
+                faq4_q: "What types of vehicles do you broker?",
+                faq4_a: "We broker new cars, year-old cars, used cars, trailers, and motorcycles of all common brands and models.",
+                foot_copy: "&copy; 2026 Westdeutsche Fahrzeugvermittlung UG (haftungsbeschränkt). All rights reserved.",
+                foot_link1: "CONTACT",
+                foot_link2: "IMPRINT",
+                foot_link3: "PRIVACY POLICY",
+                foot_link4: "CANCELLATION POLICY",
+                foot_link5: "TERMS & CONDITIONS"
             },
             ru: {
-                nav_logo_sub: "ПОДБОР АВТОМОБИЛЕЙ",
+                nav_logo_sub: "АВТОБРОКЕР",
                 nav_wunschfahrzeug: "Авто мечты",
                 nav_leistungen: "Услуги",
                 nav_qualitaet: "Качество",
                 nav_bewertungen: "Отзывы",
-                nav_faq: "Вопросы",
-                nav_kontakt: "Контакт",
-                nav_lang_label: "Выбрать язык",
+                nav_faq: "ЧАВО",
+                nav_kontakt: "Контакты",
+                nav_lang_label: "<i class='fas fa-globe'></i> Язык",
                 nav_theme_label: "Внешний вид",
-                theme_btn_text: "Сменить тему",
-                hero_title: "Мы найдем для вашего авто <br class='hidden sm:block'> <span class='text-gold-gradient font-bold'>идеального покупателя.</span>",
-                hero_subtitle: "Получите <span class='text-brand-gold font-semibold'>лучшую цену</span> при <span class='text-white font-semibold border-b border-brand-gold pb-1'>минимальных</span> усилиях.",
-                hero_btn: "Свяжитесь со мной",
-                hero_besprechung: "Консультация!",
+                theme_btn_text: "Переключить тему",
+                hero_title: "Мы найдем <br class='hidden sm:block'> <span class='text-gold-gradient font-bold'>идеального покупателя</span> для вашего авто.",
+                hero_subtitle: "Получите <span class='text-brand-gold font-semibold'>максимальную цену</span> при <span class='text-white font-semibold border-b border-brand-gold pb-1'>минимальных</span> усилиях.",
+                hero_btn: "Свяжитесь со мной <span class='text-xs font-normal opacity-90 mt-1 tracking-normal block'>для бесплатной</span>",
+                hero_besprechung: "Консультации!",
                 hero_kleinanzeigen: "Наши предложения на",
-                wa_tooltip: "Напишите нам!",
+                wa_tooltip: "Написать нам!",
                 about_tag: "О нас",
                 about_title: "Ваш эксперт по подбору авто",
-                cont_tag: "Связь с нами",
-                cont_title: "Контакты",
-                cont_desc: "Ищете новый автомобиль или мотоцикл? Наши эксперты помогут вам.",
+                about_p1: "Как динамичная и целеустремленная команда, мы объединяем глубокие знания отрасли с передовыми методами анализа данных. Вместо того чтобы полагаться на устаревшие стандарты, мы используем инновационные маркетинговые стратегии и нашу обширную сеть, чтобы найти для вас идеальный автомобиль или продать ваш подержанный автомобиль по лучшей цене.",
+                about_p2: "Будь то новые автомобили, годовалые автомобили, подержанные автомобили, прицепы или мотоциклы — мы ваш надежный, гибкий партнер.",
+                feat1_title: "Экспертиза рынка и динамика",
+                feat1_desc: "Глубокое понимание текущего автомобильного рынка и точные методы анализа гарантируют вам оптимальную консультацию. Прозрачно и всегда актуально.",
+                feat2_title: "Индивидуальная консультация",
+                feat2_desc: "У каждого клиента есть свои индивидуальные потребности и требования. Мы уделяем время, чтобы понять их и найти подходящий для вас автомобиль.",
+                feat3_title: "Комплексное обслуживание",
+                feat3_desc: "От консультации и посредничества до сделки купли-продажи — мы предлагаем вам комплексное обслуживание из одних рук. Просто и без стресса.",
+                feat4_title: "Доверие и надежность",
+                feat4_desc: "Доверие и надежность для нас на первом месте. Мы полагаемся на прозрачную коммуникацию и справедливые условия для покупателей и продавцов.",
+                
+                cont_tag: "Прямая связь",
+                cont_title: "Свяжитесь с нами",
+                cont_desc: "Готовы к предложению? Позвоните нам или напишите напрямую.",
                 cont_phone_lbl: "Позвоните нам",
                 cont_email_lbl: "Напишите нам",
-                form_title: "Запрос",
-                form_fname: "Имя *",
-                form_lname: "Фамилия *",
-                form_email: "E-Mail *",
-                form_service_label: "Выбор услуги *",
-                form_service_opt_default: "Выберите пример услуги...",
-                form_service_opt1: "Premium Car Hunting (Индивидуальный поиск)",
-                form_service_opt2: "Эксклюзивный подбор новых авто",
-                form_service_opt3: "Продажа авто (Брокеридж по лучшей цене)",
-                form_service_opt4: "Подбор спорткаров и экзотики",
-                form_service_opt5: "Консультации по автопарку и лизинг",
-                form_service_opt6: "Оценка и поиск олдтаймеров",
-                form_msg: "Ваше сообщение *",
-                form_btn: "Отправить сообщение",
-                foot_copy: "&copy; 2026 Westdeutsche Fahrzeugvermittlung UG. Все права защищены.",
-                foot_link1: "КОНТАКТЫ"
+                cont_loc_lbl: "Наше местоположение",
+                cont_loc_btn: "Открыть в Google Maps",
+                
+                form_title: "Запрос на контакт",
+                form_desc: "Чем мы можем вам помочь?",
+                form_name_lbl: "Имя",
+                form_name_ph: "Иван Иванов",
+                form_tel_lbl: "Телефон",
+                form_tel_ph: "Ваш номер",
+                form_email_lbl: "E-Mail Адрес",
+                form_car_lbl: "Автомобиль / Модель",
+                form_car_ph: "напр. Porsche 911, 1980 г.",
+                form_service_lbl: "Желаемая услуга",
+                form_service_opt_default: "Пожалуйста, выберите...",
+                form_service_opt1: "Продать автомобиль (Брокеридж)",
+                form_service_opt2: "Найти автомобиль (Car Hunting)",
+                form_service_opt3: "Общая консультация",
+                form_msg_lbl: "Сообщение",
+                form_gdpr: "Я согласен на обработку данных для связи со мной.",
+                form_btn: "Отправить запрос",
+
+                hunt_tag: "Услуга Car Hunting",
+                hunt_title: "Мы найдем ваш <br><span class='text-brand-gold'>Автомобиль мечты!</span>",
+                hunt_sub: "Эксклюзивный доступ к <span class='text-brand-gold font-medium'>международным автомобильным коллекциям</span>.",
+                hunt_desc: "Избавьте себя от утомительных и долгих поисков. Сообщите нам свои точные пожелания — от марки и модели до желаемой комплектации. Наша обширная сеть позволяет нам находить для вас автомобили, которые часто даже не попадают на открытый рынок.",
+                hunt_btn: "Оставить заявку на поиск",
+                srv_tag: "Портфолио",
+                srv_title: "Обзор всех услуг",
+                srv1_title: "Посредничество при покупке новых автомобилей",
+                srv1_desc: "Мы поможем вам найти подходящий новый автомобиль. Благодаря нашему опыту мы предлагаем вам лучшие предложения, адаптированные к вашим пожеланиям.",
+                srv2_title: "Годовалые автомобили и авто с пробегом",
+                srv2_desc: "Мы всесторонне проверяем и оцениваем автомобили, чтобы убедиться, что вы получите автомобиль в безупречном состоянии.",
+                srv3_title: "Прицепы и мотоциклы",
+                srv3_desc: "Наша сеть позволяет нам найти именно ту модель, которая вам нужна, даже для прицепов или мотоциклов.",
+                qual_tag: "Безопасность",
+                qual_title: "Наши гарантии качества",
+                qual_desc: "Все автомобили, переданные через нас, по возможности имеют:",
+                qual_l1: "Новый основной осмотр и проверку выхлопных газов без дефектов",
+                qual_l2: "Актуальное сервисное обслуживание и сервисную книжку с учетом спецификаций производителя",
+                qual_l3: "Отсутствие задолженностей по техническому обслуживанию; память неисправностей системы пуста",
+                qual_l4: "Выявленные дефекты профессионально устраняются",
+                qual_l5: "Гарантию, будь то гарантия производителя или гарантия на подержанный автомобиль со 100% покрытием",
+                rev_tag: "Социальное доказательство",
+                rev_title: "Удовлетворение — это не случайность.<br><span class='text-xl md:text-2xl font-normal text-gray-600 dark:text-gray-400 mt-2 block'>Это результат бескомпромиссного качества.</span>",
+                rev_rating: "<span class='font-bold text-gray-900 dark:text-white'>5.0 / 5 звезд</span> на основе наших сделок",
+                rev1_text: "\"Гладкий процесс и абсолютная прозрачность. Мой Porsche был продан по лучшей цене в течение 2 недель без необходимости мне заниматься тест-драйвами.\"",
+                rev1_role: "Успешная сделка",
+                rev2_text: "\"Как дилетант, я чувствовал себя в идеальной заботе. Команда Car Hunting нашла мне именно тот BMW M4, который я месяцами тщетно искал.\"",
+                rev2_role: "Мандат Car Hunting",
+                rev3_text: "\"Профессионально, быстро и предельно конфиденциально. Качество подготовки автомобиля перед передачей было безупречным. Рекомендую для эксклюзивности.\"",
+                rev3_name: "Д-р Андреас К.",
+                rev3_role: "Успешная покупка авто",
+                faq_tag: "Прозрачная информация",
+                faq_title: "Часто задаваемые вопросы",
+                faq1_q: "Сколько времени занимает поиск автомобиля?",
+                faq1_a: "Сроки поиска зависят от ваших конкретных требований и наличия автомобилей. Однако, как правило, мы можем найти подходящий автомобиль в течение нескольких дней или недель.",
+                faq2_q: "Сколько стоят услуги брокера?",
+                faq2_a: "Наши брокерские комиссии зависят от стоимости автомобиля и объема желаемых услуг. Свяжитесь с нами для получения индивидуального предложения.",
+                faq3_q: "Могу ли я сдать свой старый автомобиль в Trade-In?",
+                faq3_a: "Да, мы предлагаем вам возможность сдать ваш старый автомобиль. Наши эксперты оценят ваш автомобиль честно и прозрачно.",
+                faq4_q: "С какими типами автомобилей вы работаете?",
+                faq4_a: "Мы подбираем новые автомобили, годовалые автомобили, автомобили с пробегом, прицепы и мотоциклы всех популярных марок и моделей.",
+                foot_copy: "&copy; 2026 Westdeutsche Fahrzeugvermittlung UG (haftungsbeschränkt). Все права защищены.",
+                foot_link1: "КОНТАКТЫ",
+                foot_link2: "ИМПРЕССУМ",
+                foot_link3: "КОНФИДЕНЦИАЛЬНОСТЬ",
+                foot_link4: "ПРАВО НА ОТЗЫВ",
+                foot_link5: "ОУП"
             }
         };
 
         function switchLanguage(lang) {
+            // Text Node Replacement
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (translations[lang]?.[key]) {
+                if (translations[lang] && translations[lang][key]) {
                     el.innerHTML = translations[lang][key];
                 }
             });
 
-            const langs = ['de', 'en', 'ru'];
-            langs.forEach(l => {
-                const btn = document.getElementById(`menu-lang-${l}`);
-                if (btn) {
-                    if (l === lang) {
-                        btn.classList.add('bg-brand-gold/10', 'text-brand-gold', 'border-brand-gold/30', 'font-bold');
-                        btn.classList.remove('border-white/10', 'text-gray-400', 'font-medium');
-                    } else {
-                        btn.classList.remove('bg-brand-gold/10', 'text-brand-gold', 'border-brand-gold/30', 'font-bold');
-                        btn.classList.add('border-white/10', 'text-gray-400', 'font-medium');
-                    }
+            // Placeholder Replacement
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if (translations[lang] && translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
                 }
             });
+
+            // Update Desktop Label
+            const desktopLabel = document.getElementById('current-lang-desktop');
+            if (desktopLabel) desktopLabel.innerText = lang.toUpperCase();
+
+            // Update Desktop Dropdown Highlight
+            document.querySelectorAll('.lang-btn-de, .lang-btn-en, .lang-btn-ru').forEach(btn => {
+                btn.classList.remove('font-bold', 'text-brand-gold', 'bg-gray-50', 'dark:bg-black/50', 'border-l-2', 'border-brand-gold');
+                btn.classList.add('font-medium', 'text-gray-700', 'dark:text-gray-300');
+            });
+            const activeDesktopBtn = document.querySelector(`.lang-btn-${lang}`);
+            if (activeDesktopBtn) {
+                activeDesktopBtn.classList.remove('font-medium', 'text-gray-700', 'dark:text-gray-300');
+                activeDesktopBtn.classList.add('font-bold', 'text-brand-gold', 'bg-gray-50', 'dark:bg-black/50', 'border-l-2', 'border-brand-gold');
+            }
+
+            // Update Mobile Button Highlight
+            document.querySelectorAll('.mob-lang-de, .mob-lang-en, .mob-lang-ru').forEach(btn => {
+                btn.classList.remove('bg-brand-gold/10', 'text-brand-gold', 'border-brand-gold/30');
+                btn.classList.add('border-gray-300', 'dark:border-white/10', 'text-gray-600', 'dark:text-gray-400');
+            });
+            const activeMobileBtn = document.querySelector(`.mob-lang-${lang}`);
+            if (activeMobileBtn) {
+                activeMobileBtn.classList.remove('border-gray-300', 'dark:border-white/10', 'text-gray-600', 'dark:text-gray-400');
+                activeMobileBtn.classList.add('bg-brand-gold/10', 'text-brand-gold', 'border-brand-gold/30');
+            }
         }
     </script>
 </body>
