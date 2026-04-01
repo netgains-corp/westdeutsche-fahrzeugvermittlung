@@ -235,7 +235,8 @@
     </header>
 
     <!-- HERO SECTION -->
-    <section class="relative min-h-[90vh] flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-no-repeat bg-fixed pt-24 lg:pt-32">
+    <!-- iPad Bug Fix: "bg-fixed" entfernt, um Render-Fehler in iOS Safari zu unterbinden -->
+    <section class="relative min-h-[90vh] flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-no-repeat pt-24 lg:pt-32">
         <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
             <h1 data-i18n="hero_title" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-6 leading-tight mt-10 lg:mt-0">
                 Wir bringen Ihr Fahrzeug <br class="hidden sm:block">
